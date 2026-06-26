@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lider HumanX — Para líderes que quieren inspirar y transformar, no solo dirigir. Talleres presenciales con arte, música y movimiento." />
+  <title>Lider HumanX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet?v=20260626" />
+  <style>
+    /* ─── VARIABLES ─────────────────────────────────────── */
+    :root {
+      --bg:         #07090A;
+      --bg-mid:     #0D1210;
+      --accent-1:   #C8FF00; /* amarillo eléctrico */
+      --accent-2:   #FF3D6B; /* rosa fuerte */
+      --accent-3:   #9B5FFF; /* morado vibrante */
+      --text:       #F0EBE0;
+      --text-muted: #8A8A8A;
+      --font-head:  'Syne', sans-serif;
+      --font-body:  'Space Grotesk', sans-serif;
+      --max-w:      1100px;
+      --gap:        clamp(4rem, 10vw, 8rem);
+    }
+
+    /* ─── RESET ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2.2vw, 1.125rem);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    /* ─── SPLASH ────────────────────────────────────────── */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-x {
+      font-family: var(--font-head);
+      font-size: clamp(4rem, 15vw, 10rem);
+      font-weight: 800;
+      color: var(--accent-1);
+      animation: splash-pulse 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes splash-pulse {
+      from { opacity: 0.3; transform: scale(0.95); }
+      to   { opacity: 1;   transform: scale(1.05); }
+    }
+
+    /* ─── NAV ───────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem clamp(1.25rem, 5vw, 3rem);
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(7,9,10,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent-1); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent-1);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 100px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,255,0,0.3); }
+
+    /* ─── SHARED LAYOUT ─────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 5vw, 3rem);
+    }
+    section { padding-block: var(--gap); }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-1);
+      margin-bottom: 1rem;
+    }
+    h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; }
+    h1 { font-size: clamp(2.75rem, 8vw, 6rem); font-weight: 800; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 700; }
+
+    /* ─── REVEAL ANIMATIONS ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal[data-delay="1"] { transition-delay: 0.1s; }
+    .reveal[data-delay="2"] { transition-delay: 0.2s; }
+    .reveal[data-delay="3"] { transition-delay: 0.3s; }
+    .reveal[data-delay="4"] { transition-delay: 0.4s; }
+    .reveal[data-delay="5"] { transition-delay: 0.5s; }
+
+    /* fallback: si JS no carga, mostrar todo */
+    .no-js .reveal { opacity: 1; transform: none; }
+
+    /* ─── 1. HERO ───────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 5rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 75% 50%, rgba(200,255,0,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(155,95,255,0.08) 0%, transparent 60%);
+    }
+    .hero-noise {
+      position: absolute; inset: 0; z-index: 1; opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(200,255,0,0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-1);
+      margin-bottom: 2rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent-1);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .hero-title {
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent-1);
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title em::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent-2);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: underline-in 0.6s ease 1.2s forwards;
+    }
+    @keyframes underline-in { to { transform: scaleX(1); } }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-subtitle strong { color: var(--text); font-weight: 500; }
+    .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent-1);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(200,255,0,0.35); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(240,235,224,0.2);
+      color: var(--text);
+      font-weight: 500;
+      padding: 0.9rem 1.75rem;
+      border-radius: 100px;
+      transition: border-color 0.2s ease;
+    }
+    .btn-ghost:hover { border-color: var(--text); }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bob 2s ease-in-out infinite;
+    }
+    .hero-scroll svg { opacity: 0.5; }
+    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* floating accent shapes */
+    .hero-shape {
+      position: absolute; z-index: 1; pointer-events: none;
+      border-radius: 50%;
+      filter: blur(60px);
+    }
+    .hero-shape-1 {
+      width: 300px; height: 300px;
+      background: rgba(200,255,0,0.05);
+      top: 10%; right: 5%;
+      animation: float-1 8s ease-in-out infinite alternate;
+    }
+    .hero-shape-2 {
+      width: 200px; height: 200px;
+      background: rgba(255,61,107,0.07);
+      bottom: 20%; right: 20%;
+      animation: float-2 10s ease-in-out infinite alternate;
+    }
+    @keyframes float-1 { from{transform:translate(0,0) scale(1)} to{transform:translate(20px,-30px) scale(1.1)} }
+    @keyframes float-2 { from{transform:translate(0,0)} to{transform:translate(-20px,20px) scale(0.9)} }
+
+    /* ─── 2. EL PROBLEMA ────────────────────────────────── */
+    #problema {
+      background: var(--bg-mid);
+      position: relative;
+      overflow: hidden;
+    }
+    .problema-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 5rem);
+      align-items: start;
+    }
+    .problema-copy h2 { margin-bottom: 1.5rem; }
+    .problema-copy p { color: var(--text-muted); margin-bottom: 1rem; }
+    .problema-copy p strong { color: var(--text); }
+    .emociones-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .emocion-card {
+      padding: 2rem 1.75rem;
+      background: rgba(255,255,255,0.02);
+      transition: background 0.3s ease;
+      position: relative;
+    }
+    .emocion-card:hover { background: rgba(200,255,0,0.04); }
+    .emocion-num {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(200,255,0,0.15);
+      margin-bottom: 0.75rem;
+    }
+    .emocion-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .emocion-card p { font-size: 0.875rem; color: var(--text-muted); }
+    .emocion-card.pink h3 { color: var(--accent-2); }
+    .emocion-card.yellow h3 { color: var(--accent-1); }
+    .emocion-card.purple h3 { color: var(--accent-3); }
+    .emocion-card.white h3 { color: var(--text); }
+
+    /* ─── 3. QUÉ ES ─────────────────────────────────────── */
+    #que-es { position: relative; }
+    .que-es-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: clamp(3rem, 6vw, 5rem);
+      align-items: center;
+    }
+    .que-es-photo {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .que-es-photo .photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #1a2020 0%, #0f1a0f 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .photo-placeholder svg { opacity: 0.3; }
+    .photo-placeholder .photo-note {
+      font-style: italic;
+      font-size: 0.8rem;
+      max-width: 200px;
+      line-height: 1.5;
+      opacity: 0.6;
+    }
+    .que-es-copy { display: flex; flex-direction: column; gap: 1.5rem; }
+    .que-es-copy h2 { margin-bottom: 0.5rem; }
+    .que-es-copy p { color: var(--text-muted); }
+    .que-es-copy p strong { color: var(--text); }
+    .pillars { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+    .pillar {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .pillar:hover { border-color: rgba(200,255,0,0.2); background: rgba(200,255,0,0.03); }
+    .pillar-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .pillar-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .pillar-text p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+
+    /* decoration line */
+    .deco-line {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    /* ─── 4. CÓMO FUNCIONA ──────────────────────────────── */
+    #como-funciona { background: var(--bg-mid); }
+    .pasos-header { text-align: center; max-width: 640px; margin-inline: auto; margin-bottom: clamp(3rem, 6vw, 4rem); }
+    .pasos-header h2 { margin-bottom: 1rem; }
+    .pasos-header p { color: var(--text-muted); }
+    .pasos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .paso {
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.015);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .paso:hover { transform: translateY(-6px); border-color: rgba(200,255,0,0.2); }
+    .paso::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200,255,0,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .paso:hover::before { opacity: 1; }
+    .paso-num {
+      font-family: var(--font-head);
+      font-size: 4.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(200,255,0,0.08);
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+    }
+    .paso-icon {
+      font-size: 2rem; margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      background: rgba(200,255,0,0.08);
+    }
+    .paso h3 { margin-bottom: 0.75rem; font-size: 1.4rem; }
+    .paso h3 span { color: var(--accent-1); }
+    .paso p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ─── 5. SOBRE MARJO ────────────────────────────────── */
+    #sobre-marjo { position: relative; overflow: hidden; }
+    .marjo-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: center;
+    }
+    .marjo-copy { order: -1; }
+    .marjo-copy h2 { margin-bottom: 1.5rem; }
+    .marjo-copy p { color: var(--text-muted); margin-bottom: 1rem; }
+    .marjo-copy p strong { color: var(--text); }
+    .marjo-copy .accent-line {
+      display: block;
+      font-family: var(--font-head);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 700;
+      color: var(--accent-1);
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(200,255,0,0.2);
+    }
+    .marjo-photo-wrap {
+      position: relative;
+    }
+    .marjo-photo {
+      aspect-ratio: 3/4;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .marjo-photo .photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg, #141f14 0%, #0a1210 50%, #13101a 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .marjo-photo-badge {
+      position: absolute;
+      bottom: -1rem; right: -1rem;
+      background: var(--accent-1);
+      color: var(--bg);
+      font-weight: 800;
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      text-align: center;
+      line-height: 1.3;
+      max-width: 140px;
+      box-shadow: 0 8px 24px rgba(200,255,0,0.2);
+    }
+    .marjo-stats {
+      display: flex; gap: 2rem; margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat { }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent-1);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* ─── 6. TESTIMONIOS ────────────────────────────────── */
+    #testimonios { background: var(--bg-mid); }
+    .testimonios-header { text-align: center; margin-bottom: clamp(3rem, 6vw, 4rem); }
+    .testimonios-header h2 { margin-bottom: 0.75rem; }
+    .testimonios-header p { color: var(--text-muted); max-width: 480px; margin-inline: auto; }
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonio {
+      padding: 2rem 1.75rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.015);
+      display: flex; flex-direction: column; gap: 1.25rem;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .testimonio:hover { transform: translateY(-4px); border-color: rgba(155,95,255,0.25); }
+    .testimonio-quote {
+      font-size: 2rem;
+      color: var(--accent-3);
+      line-height: 1;
+      font-family: var(--font-head);
+      font-weight: 800;
+    }
+    .testimonio-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); font-style: italic; }
+    .testimonio-text strong { color: var(--text); font-style: normal; }
+    .testimonio-author {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-top: auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .author-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a2020, #241822);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .author-info .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-info .author-role { font-size: 0.78rem; color: var(--text-muted); }
+    .placeholder-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(200,255,0,0.08);
+      color: var(--accent-1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ─── 7. CTA FINAL ──────────────────────────────────── */
+    #cta-final {
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .cta-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,255,0,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(155,95,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 80% 20%, rgba(255,61,107,0.06) 0%, transparent 60%);
+    }
+    .cta-content { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; }
+    .cta-content h2 { margin-bottom: 1rem; }
+    .cta-content h2 em {
+      font-style: normal;
+      color: var(--accent-1);
+    }
+    .cta-content p { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.1rem; }
+    .cta-wa {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: #25D366;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1.1rem 2.5rem;
+      border-radius: 100px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cta-wa:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(37,211,102,0.3); }
+    .cta-wa svg { width: 24px; height: 24px; }
+    .cta-note { margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ─── FOOTER ────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5rem clamp(1.25rem, 5vw, 3rem);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    footer .footer-brand {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    footer .footer-brand span { color: var(--accent-1); }
+
+    /* ─── MOBILE ────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .problema-grid,
+      .que-es-inner,
+      .marjo-grid,
+      .pasos-grid,
+      .testimonios-grid { grid-template-columns: 1fr; }
+
+      .marjo-copy { order: 0; }
+      .marjo-photo-badge { bottom: 1rem; right: 1rem; }
+
+      .emociones-grid { grid-template-columns: 1fr; }
+
+      .hero-scroll { display: none; }
+
+      nav { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" role="presentation" aria-hidden="true">
+  <span class="splash-x">X</span>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Lider Human<span>X</span></div>
+  <a
+    href="https://wa.me/51949193190?text=Hola%2C%20quiero%20saber%20más%20sobre%20Lider%20HumanX"
+    class="nav-cta"
+    target="_blank" rel="noopener"
+    aria-label="Contactar por WhatsApp"
+  >
+    Hablemos
+  </a>
+</nav>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-shape hero-shape-1"></div>
+  <div class="hero-shape hero-shape-2"></div>
+
+  <div class="container hero-content">
+    <div class="hero-tag reveal">Talleres presenciales de liderazgo</div>
+
+    <h1 class="hero-title reveal" data-delay="1">
+      Lider<br>Human<em>X</em>
+    </h1>
+
+    <p class="hero-subtitle reveal" data-delay="2">
+      Para líderes que quieren <strong>inspirar y transformar</strong>, no solo dirigir.<br>
+      Lo hacemos con arte, música y movimiento&nbsp;— suena raro hasta que lo vives.
+    </p>
+
+    <div class="hero-actions reveal" data-delay="3">
+      <a
+        href="https://wa.me/51949193190?text=Hola%2C%20quiero%20saber%20más%20sobre%20Lider%20HumanX"
+        class="btn-primary"
+        target="_blank" rel="noopener"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.103 1.51 5.833L.067 23.49a.5.5 0 0 0 .609.63l5.825-1.525A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.946 9.946 0 0 1-5.124-1.415l-.369-.22-3.556.932.95-3.461-.24-.38A9.952 9.952 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Quiero saber más
+      </a>
+      <a href="#que-es" class="btn-ghost">
+        Cómo funciona
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- 2. EL PROBLEMA -->
+<section id="problema">
+  <div class="container">
+    <div class="problema-grid">
+      <div class="problema-copy">
+        <span class="eyebrow reveal">El contexto real</span>
+        <h2 class="reveal" data-delay="1">
+          Tienes todo<br>bajo control.<br>
+          <span style="color:var(--accent-2)">Menos lo de adentro.</span>
+        </h2>
+        <p class="reveal" data-delay="2">
+          Eres el tipo de líder que resuelve todo. El que tiene la respuesta, el plan y la energía. <strong>Por fuera.</strong>
+        </p>
+        <p class="reveal" data-delay="3">
+          Por dentro, cargás solo. Las decisiones pesan, el equipo no siempre entiende, y hay algo que nunca te enseñaron a hacer: <strong>sentir sin que te cueste la autoridad.</strong>
+        </p>
+        <p class="reveal" data-delay="4">
+          Hay cuatro emociones que los líderes de alta exigencia aprenden a suprimir desde temprano. No porque sean débiles — sino porque nadie les dio herramientas para gestionarlas.
+        </p>
+      </div>
+
+      <div class="emociones-grid reveal" data-delay="2">
+        <div class="emocion-card yellow">
+          <div class="emocion-num">01</div>
+          <h3>Enojo</h3>
+          <p>"Si me enojo, pierdo el respeto." — y así lo guardás hasta que revienta por donde no querés.</p>
+        </div>
+        <div class="emocion-card pink">
+          <div class="emocion-num">02</div>
+          <h3>Frustración</h3>
+          <p>La que se viste de exigencia. La que te hace repetir mil veces lo que nadie hace bien según tus estándares.</p>
+        </div>
+        <div class="emocion-card purple">
+          <div class="emocion-num">03</div>
+          <h3>Tristeza</h3>
+          <p>Esa que ni nombre le pones. Solo sabés que algo pesa, que estás cansadx, que ya no es como antes.</p>
+        </div>
+        <div class="emocion-card white">
+          <div class="emocion-num">04</div>
+          <h3>Injusticia</h3>
+          <p>La que te paraliza o te hace explotar. "Yo hago todo bien y aún así…" — sí, la conocés bien.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. QUÉ ES LIDER HUMANX -->
+<section id="que-es">
+  <div class="container">
+    <div class="que-es-inner">
+      <div class="que-es-photo reveal">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="photo-note">📸 Foto del taller en acción — participantes en movimiento, expresión real, sin posados corporativos</span>
+        </div>
+      </div>
+
+      <div class="que-es-copy">
+        <span class="eyebrow reveal">Qué es Lider HumanX</span>
+        <h2 class="reveal" data-delay="1">
+          No es un curso.<br>Es una<br><span style="color:var(--accent-1)">experiencia.</span>
+        </h2>
+        <p class="reveal" data-delay="2">
+          Lider HumanX es un taller presencial donde los líderes aprenden a <strong>reconocer y gestionar sus emociones</strong> usando arte, música y movimiento como herramientas reales.
+        </p>
+        <p class="reveal" data-delay="3">
+          No teoría. No coaching de manual. Un espacio seguro y controlado donde lo que sentís tiene nombre, tiene cuerpo, y tiene salida.
+        </p>
+        <p class="reveal" data-delay="4">
+          Sí, suena raro. Lo decimos nosotros primero. <strong>Pero los resultados son los que hacen que la gente vuelva.</strong>
+        </p>
+
+        <div class="pillars reveal" data-delay="5">
+          <div class="pillar">
+            <div class="pillar-icon">🎨</div>
+            <div class="pillar-text">
+              <h4>Arte</h4>
+              <p>Para sacar lo que no tiene palabras todavía.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🎵</div>
+            <div class="pillar-text">
+              <h4>Música</h4>
+              <p>Para mover lo que el cuerpo guarda sin que la mente lo sepa.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🕺</div>
+            <div class="pillar-text">
+              <h4>Movimiento</h4>
+              <p>Porque la emoción vive en el cuerpo, no en el PowerPoint.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CÓMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="container">
+    <div class="pasos-header">
+      <span class="eyebrow reveal">Los 3 pasos</span>
+      <h2 class="reveal" data-delay="1">Así funciona<br>la transformación</h2>
+      <p class="reveal" data-delay="2">No es magia. Es un proceso concreto que te damos en formato que podés usar desde el lunes siguiente.</p>
+    </div>
+
+    <div class="pasos-grid">
+      <div class="paso reveal" data-delay="1">
+        <div class="paso-num">01</div>
+        <div class="paso-icon">👁️</div>
+        <h3><span>Reconocer</span></h3>
+        <p>Admitir lo que sentís sin juzgarlo. No "debería sentir", sino qué sentís. Suena básico. Es lo que más cuesta y lo que más cambia todo.</p>
+      </div>
+      <div class="paso reveal" data-delay="2">
+        <div class="paso-num">02</div>
+        <div class="paso-icon">🔧</div>
+        <h3><span>Gestionar</span></h3>
+        <p>Límites, hábitos corporales, herramientas concretas. Nada de "respira hondo". Estrategias reales para líderes reales con agendas reales.</p>
+      </div>
+      <div class="paso reveal" data-delay="3">
+        <div class="paso-num">03</div>
+        <div class="paso-icon">🔁</div>
+        <h3><span>Reconocer en el otro</span></h3>
+        <p>Cuando cambiás vos, cambia tu entorno. Empezás a leer lo que tu equipo no dice. Y eso — eso es liderazgo de verdad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SOBRE MARJO -->
+<section id="sobre-marjo">
+  <div class="container">
+    <div class="marjo-grid">
+      <div class="marjo-copy">
+        <span class="eyebrow reveal">Quién está detrás</span>
+        <h2 class="reveal" data-delay="1">
+          Hola,<br>soy <span style="color:var(--accent-1)">Marjo.</span>
+        </h2>
+        <p class="reveal" data-delay="2">
+          Llevo años en el mundo de startups, Customer Success y RevOps. Lideré equipos, armé procesos desde cero, y aprendí a la mala lo que nadie te enseña en ningún MBA: cómo seguir siendo vos mientras liderás.
+        </p>
+        <p class="reveal" data-delay="3">
+          <strong>Creé Lider HumanX porque lo necesitaba yo.</strong> Y porque cuando lo trabajé — con arte, música y movimiento, que sí, también me pareció raro — algo en mí cambió de base.
+        </p>
+        <p class="reveal" data-delay="4">
+          Creo que el liderazgo más poderoso viene de adentro. No del control, no de la autoridad. De la claridad de quién sos y qué sentís cuando nadie está mirando.
+        </p>
+        <span class="accent-line reveal" data-delay="5">
+          "El líder que se conoce a sí mismo no tiene que demostrar nada."
+        </span>
+
+        <div class="marjo-stats reveal" data-delay="5">
+          <div class="stat">
+            <div class="stat-num">+8</div>
+            <div class="stat-label">años liderando<br>equipos reales</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">herramientas que<br>nadie usa (y funcionan)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">presencial,<br>sin shortcuts</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="marjo-photo-wrap reveal" data-delay="2">
+        <div class="marjo-photo">
+          <div class="photo-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="photo-note" style="color:var(--text-muted); font-size:0.8rem; line-height:1.5; max-width:200px;">📸 Foto tuya — algo auténtico. Con tus tatuajes si quieres. Nada de foto corporativa con saco.</span>
+          </div>
+        </div>
+        <div class="marjo-photo-badge">
+          Creadora<br>Lider HumanX
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. TESTIMONIOS -->
+<section id="testimonios">
+  <div class="container">
+    <div class="testimonios-header">
+      <span class="eyebrow reveal">Lo que vivieron</span>
+      <h2 class="reveal" data-delay="1">Ellos fueron primero.</h2>
+      <p class="reveal" data-delay="2">También llegaron con cara de "esto no es para mí".</p>
+    </div>
+
+    <div class="testimonios-grid">
+      <!-- Testimonio 1 -->
+      <div class="testimonio reveal" data-delay="1">
+        <div class="placeholder-badge">Testimonio real — reemplazar</div>
+        <div class="testimonio-quote">"</div>
+        <p class="testimonio-text">
+          Llegué esperando algo tipo retiro de meditación con PowerPoint. Lo que me llevé fue entender <strong>por qué explotaba con mi equipo cada vez que sentía que perdía el control.</strong> No lo vi venir.
+        </p>
+        <div class="testimonio-author">
+          <div class="author-avatar">👤</div>
+          <div class="author-info">
+            <div class="author-name">Nombre del participante</div>
+            <div class="author-role">Cargo / empresa · Ciudad</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonio 2 -->
+      <div class="testimonio reveal" data-delay="2">
+        <div class="placeholder-badge">Testimonio real — reemplazar</div>
+        <div class="testimonio-quote">"</div>
+        <p class="testimonio-text">
+          Soy de las que creen que "gestionar emociones" es para gente que no sabe tomar decisiones. <strong>Este taller me demostró exactamente lo contrario.</strong> Y lo hizo de una forma que no me dio ganas de salir corriendo.
+        </p>
+        <div class="testimonio-author">
+          <div class="author-avatar">👤</div>
+          <div class="author-info">
+            <div class="author-name">Nombre del participante</div>
+            <div class="author-role">Cargo / empresa · Ciudad</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonio 3 -->
+      <div class="testimonio reveal" data-delay="3">
+        <div class="placeholder-badge">Testimonio real — reemplazar</div>
+        <div class="testimonio-quote">"</div>
+        <p class="testimonio-text">
+          El lunes siguiente tuve una conversación difícil con mi co-founder que en otro momento hubiera terminado mal. <strong>Esta vez la pude sostener.</strong> No sé explicar bien qué cambió. Pero algo cambió.
+        </p>
+        <div class="testimonio-author">
+          <div class="author-avatar">👤</div>
+          <div class="author-info">
+            <div class="author-name">Nombre del participante</div>
+            <div class="author-role">Cargo / empresa · Ciudad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CTA FINAL -->
+<section id="cta-final">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-content">
+      <span class="eyebrow reveal">El siguiente paso</span>
+      <h2 class="reveal" data-delay="1">
+        ¿Lista/o para liderar<br><em>desde adentro?</em>
+      </h2>
+      <p class="reveal" data-delay="2">
+        Mandame un mensaje y hablamos. Sin formularios. Sin llamadas de 45 minutos con 3 personas de ventas. Solo vos y yo viendo si esto tiene sentido para ti.
+      </p>
+      <a
+        href="https://wa.me/51949193190?text=Hola%20Marjo%2C%20quiero%20saber%20más%20sobre%20Lider%20HumanX"
+        class="cta-wa reveal"
+        data-delay="3"
+        target="_blank" rel="noopener"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.103 1.51 5.833L.067 23.49a.5.5 0 0 0 .609.63l5.825-1.525A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.946 9.946 0 0 1-5.124-1.415l-.369-.22-3.556.932.95-3.461-.24-.38A9.952 9.952 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Escribir a Marjo por WhatsApp
+      </a>
+      <p class="cta-note reveal" data-delay="4">
+        +51 949 193 190 · Responde en menos de 24h
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Lider Human<span>X</span></div>
+  <p>© 2026 Lider HumanX · Talleres presenciales de liderazgo</p>
+  <p>Hecho con intención, no con templates.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── SAFE WRAPPER ── */
+  function safe(fn, name) {
+    try { fn(); } catch(e) { console.warn('[LHX]', name, e); }
+  }
+
+  /* ── SPLASH ── */
+  safe(function initSplash() {
+    var splash = document.getElementById('splash');
+    if (!splash) return;
+    var t = setTimeout(function () { splash.classList.add('hidden'); }, 1400);
+    window.addEventListener('load', function () {
+      clearTimeout(t);
+      setTimeout(function () { splash.classList.add('hidden'); }, 600);
+    });
+    // failsafe
+    setTimeout(function () { splash.classList.add('hidden'); }, 3000);
+  }, 'splash');
+
+  /* ── NAV SCROLL ── */
+  safe(function initNav() {
+    var nav = document.getElementById('navbar');
+    if (!nav) return;
+    var threshold = 60;
+    function onScroll() {
+      if (window.scrollY > threshold) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }, 'nav');
+
+  /* ── REVEAL ON SCROLL ── */
+  safe(function initReveal() {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+    els.forEach(function (el) { observer.observe(el); });
+
+    // failsafe: show all after 6s
+    setTimeout(function () {
+      els.forEach(function (el) { el.classList.add('visible'); });
+    }, 6000);
+  }, 'reveal');
+
+})();
+</script>
+
+</body>
+</html>
