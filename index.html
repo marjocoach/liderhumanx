@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Lider HumanX — Para líderes que quieren inspirar y transformar, no solo dirigir. Talleres presenciales con arte, música y movimiento." />
-  <title>Lider HumanX</title>
+  <meta name="description" content="Líder HumanX: Para líderes que quieren inspirar y transformar, no solo dirigir. Talleres presenciales y virtuales con arte, música y movimiento." />
+  <title>Líder HumanX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet?v=20260626" />
@@ -129,17 +129,18 @@
 
     /* ─── 1. HERO ───────────────────────────────────────── */
     #hero {
-      min-height: 100svh;
+      min-height: 100vh;
       display: grid;
       align-items: center;
       position: relative;
       overflow: hidden;
       padding-top: 5rem;
+      padding-bottom: 5rem;
     }
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 75% 50%, rgba(200,255,0,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 60% at 80% 50%, rgba(200,255,0,0.055) 0%, transparent 65%),
         radial-gradient(ellipse 40% 40% at 10% 80%, rgba(155,95,255,0.08) 0%, transparent 60%);
     }
     .hero-noise {
@@ -147,7 +148,48 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
       background-size: 200px 200px;
     }
-    .hero-content { position: relative; z-index: 2; }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 760px;
+      margin-inline: auto;
+    }
+
+    /* decorative phrase right side */
+    .hero-deco-phrase {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200,255,0,0.18);
+      user-select: none;
+      pointer-events: none;
+      text-align: right;
+      animation: deco-drift 12s ease-in-out infinite alternate;
+    }
+    .hero-deco-phrase span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200,255,0,0.18);
+    }
+    .hero-deco-phrase span.accent-stroke {
+      -webkit-text-stroke: 1px rgba(255,61,107,0.22);
+    }
+    .hero-deco-phrase span.fill {
+      color: rgba(200,255,0,0.04);
+      -webkit-text-stroke: 0px;
+    }
+    @keyframes deco-drift {
+      from { transform: translateY(0px) rotate(-1deg); }
+      to   { transform: translateY(-18px) rotate(0.5deg); }
+    }
+
     .hero-tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
       border: 1px solid rgba(200,255,0,0.3);
@@ -156,7 +198,8 @@
       font-size: 0.8rem;
       font-weight: 500;
       color: var(--accent-1);
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
+      width: fit-content;
     }
     .hero-tag::before {
       content: '';
@@ -168,6 +211,8 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
     .hero-title {
       margin-bottom: 1.5rem;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      letter-spacing: -0.04em;
     }
     .hero-title em {
       font-style: normal;
@@ -186,11 +231,19 @@
       animation: underline-in 0.6s ease 1.2s forwards;
     }
     @keyframes underline-in { to { transform: scaleX(1); } }
+    .hero-tagline {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
     .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
       color: var(--text-muted);
-      max-width: 560px;
+      max-width: 480px;
       margin-bottom: 2.5rem;
+      line-height: 1.7;
     }
     .hero-subtitle strong { color: var(--text); font-weight: 500; }
     .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
@@ -215,15 +268,25 @@
       transition: border-color 0.2s ease;
     }
     .btn-ghost:hover { border-color: var(--text); }
+
+    /* scroll indicator */
     .hero-scroll {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      animation: bob 2s ease-in-out infinite;
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: var(--text-muted); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; z-index: 3;
     }
-    .hero-scroll svg { opacity: 0.5; }
-    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--accent-1), transparent);
+      animation: scroll-line 2s ease-in-out infinite;
+      transform-origin: top;
+    }
+    @keyframes scroll-line {
+      0%   { transform: scaleY(0); opacity: 0; }
+      30%  { opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0; }
+    }
 
     /* floating accent shapes */
     .hero-shape {
@@ -232,15 +295,15 @@
       filter: blur(60px);
     }
     .hero-shape-1 {
-      width: 300px; height: 300px;
-      background: rgba(200,255,0,0.05);
-      top: 10%; right: 5%;
+      width: 400px; height: 400px;
+      background: rgba(200,255,0,0.04);
+      top: 5%; right: 0%;
       animation: float-1 8s ease-in-out infinite alternate;
     }
     .hero-shape-2 {
       width: 200px; height: 200px;
-      background: rgba(255,61,107,0.07);
-      bottom: 20%; right: 20%;
+      background: rgba(255,61,107,0.06);
+      bottom: 15%; right: 25%;
       animation: float-2 10s ease-in-out infinite alternate;
     }
     @keyframes float-1 { from{transform:translate(0,0) scale(1)} to{transform:translate(20px,-30px) scale(1.1)} }
@@ -256,81 +319,397 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: clamp(3rem, 6vw, 5rem);
-      align-items: start;
+      align-items: stretch;
     }
     .problema-copy h2 { margin-bottom: 1.5rem; }
     .problema-copy p { color: var(--text-muted); margin-bottom: 1rem; }
     .problema-copy p strong { color: var(--text); }
+
+    /* flip grid */
     .emociones-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      overflow: hidden;
+      gap: 0.75rem;
+      height: 100%;
     }
+
+    /* flip card shell */
     .emocion-card {
-      padding: 2rem 1.75rem;
-      background: rgba(255,255,255,0.02);
-      transition: background 0.3s ease;
-      position: relative;
+      perspective: 900px;
+      min-height: 200px;
     }
-    .emocion-card:hover { background: rgba(200,255,0,0.04); }
+    .emocion-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4,0.2,0.2,1);
+      border-radius: 14px;
+    }
+    .emocion-card:hover .emocion-inner { transform: rotateY(180deg); }
+
+    /* shared face styles */
+    .emocion-front,
+    .emocion-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    /* FRONT */
+    .emocion-front {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .emocion-card:hover .emocion-front { border-color: transparent; }
     .emocion-num {
       font-family: var(--font-head);
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 800;
       line-height: 1;
-      color: rgba(200,255,0,0.15);
-      margin-bottom: 0.75rem;
+      color: rgba(200,255,0,0.12);
+      margin-bottom: auto;
     }
-    .emocion-card h3 {
-      font-size: 1.1rem;
+    .emocion-front h3 {
+      font-size: 1rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
-    .emocion-card p { font-size: 0.875rem; color: var(--text-muted); }
-    .emocion-card.pink h3 { color: var(--accent-2); }
-    .emocion-card.yellow h3 { color: var(--accent-1); }
-    .emocion-card.purple h3 { color: var(--accent-3); }
-    .emocion-card.white h3 { color: var(--text); }
+    .emocion-front p {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* BACK */
+    .emocion-back {
+      transform: rotateY(180deg);
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .emocion-back p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* per-card accent colours */
+    .emocion-card.yellow .emocion-front h3 { color: var(--accent-1); }
+    .emocion-card.yellow .emocion-back  { background: rgba(200,255,0,0.06); border: 1px solid rgba(200,255,0,0.15); }
+    .emocion-card.pink   .emocion-front h3 { color: var(--accent-2); }
+    .emocion-card.pink   .emocion-back  { background: rgba(255,61,107,0.07); border: 1px solid rgba(255,61,107,0.18); }
+    .emocion-card.purple .emocion-front h3 { color: var(--accent-3); }
+    .emocion-card.purple .emocion-back  { background: rgba(155,95,255,0.07); border: 1px solid rgba(155,95,255,0.18); }
+    .emocion-card.white  .emocion-front h3 { color: var(--text); }
+    .emocion-card.white  .emocion-back  { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); }
+
+    /* comparativa */
+    .comparativa-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .comparativa-col {
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+    }
+    .col-sin {
+      background: rgba(255,61,107,0.04);
+      border: 1px solid rgba(255,61,107,0.14);
+    }
+    .sin-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+    }
+    .sin-card {
+      perspective: 800px;
+      min-height: 180px;
+    }
+    .sin-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4,0.2,0.2,1);
+      border-radius: 12px;
+    }
+    .sin-card:hover .sin-card-inner { transform: rotateY(180deg); }
+    .sin-card-front,
+    .sin-card-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.6rem;
+    }
+    .sin-card-front {
+      background: rgba(255,61,107,0.06);
+      border: 1px solid rgba(255,61,107,0.2);
+    }
+    .sin-card-front p {
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .sin-icon {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent-2);
+    }
+    .sin-card-back {
+      transform: rotateY(180deg);
+      background: rgba(180,20,60,0.18);
+      border: 1px solid rgba(255,61,107,0.35);
+    }
+    .sin-card-back p {
+      font-size: 0.75rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .sin-cards-grid { grid-template-columns: 1fr; }
+      .sin-card { min-height: 120px; }
+    }
+    .col-con {
+      background: rgba(200,255,0,0.03);
+      border: 1px solid rgba(200,255,0,0.14);
+    }
+    .comparativa-label {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .comparativa-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .comparativa-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .comp-icon {
+      flex-shrink: 0;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 0.85rem;
+      width: 20px;
+      height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      margin-top: 1px;
+    }
+    .comp-icon-no  { color: var(--accent-2); background: rgba(255,61,107,0.1); }
+    .comp-icon-yes { color: var(--accent-1); background: rgba(200,255,0,0.1); }
 
     /* ─── 3. QUÉ ES ─────────────────────────────────────── */
     #que-es { position: relative; }
-    .que-es-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: clamp(3rem, 6vw, 5rem);
-      align-items: center;
+    .que-es-header {
+      text-align: center;
+      max-width: 700px;
+      margin-inline: auto;
+      margin-bottom: clamp(1.5rem, 3vw, 2rem);
     }
-    .que-es-photo {
+    .que-es-header h2 { margin-top: 0.5rem; margin-bottom: 0; }
+    .que-es-body {
+      max-width: 700px;
+      margin-inline: auto;
+      text-align: center;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+    .que-es-body p { color: var(--text-muted); }
+    .que-es-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--accent-1);
+      border-radius: 100px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-1);
+      background: transparent;
+      margin-bottom: 1.5rem;
+    }
+    .que-es-impact {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-align: center;
+      max-width: 700px;
+      margin-inline: auto;
+      margin-bottom: 3rem;
+    }
+    .que-es-timeline {
       position: relative;
+      max-width: 600px;
+      margin-inline: auto;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .que-es-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent-1), rgba(200,255,0,0.1));
+    }
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      text-align: left;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent-1);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+      z-index: 1;
+    }
+    .timeline-dot-inner {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent-1);
+    }
+    .timeline-body h4 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .timeline-body p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .que-es-pills {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+    .que-es-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--text);
+      border-radius: 100px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .que-es-pill.active {
+      background: var(--accent-1);
+      color: #000;
+      border-color: var(--accent-1);
+    }
+    .que-es-accordion-panels {
+      width: 100%;
+      margin-top: 1rem;
+    }
+    .que-es-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+    .que-es-panel.open {
+      grid-template-rows: 1fr;
+    }
+    .que-es-panel-inner {
+      overflow: hidden;
+    }
+    .que-es-panel-content {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.5rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      text-align: left;
+    }
+    .que-es-eyebrow2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .que-es-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding-inline: clamp(1rem, 4vw, 3rem);
+    }
+    .que-es-card {
+      display: flex;
+      flex-direction: column;
       border-radius: 12px;
       overflow: hidden;
-      aspect-ratio: 4/5;
+      border: 1px dashed var(--accent-1);
+      background: #1a1a1a;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
-    .que-es-photo .photo-placeholder {
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #1a2020 0%, #0f1a0f 100%);
+    .que-es-card:hover {
+      border-style: solid;
+      box-shadow: 0 0 18px rgba(200,255,0,0.12);
+    }
+    .que-es-card-video {
+      aspect-ratio: 9 / 16;
+      width: 100%;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 1rem;
-      color: var(--text-muted);
-      font-size: 0.875rem;
-      text-align: center;
-      padding: 2rem;
+      background: #1a1a1a;
+      overflow: hidden;
     }
-    .photo-placeholder svg { opacity: 0.3; }
-    .photo-placeholder .photo-note {
-      font-style: italic;
-      font-size: 0.8rem;
-      max-width: 200px;
-      line-height: 1.5;
-      opacity: 0.6;
+    .que-es-card-video video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
-    .que-es-copy { display: flex; flex-direction: column; gap: 1.5rem; }
-    .que-es-copy h2 { margin-bottom: 0.5rem; }
-    .que-es-copy p { color: var(--text-muted); }
-    .que-es-copy p strong { color: var(--text); }
+    .que-es-card-play {
+      font-size: 2.5rem;
+      color: var(--accent-1);
+      line-height: 1;
+      user-select: none;
+    }
+    .que-es-card-label {
+      padding: 0.55rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .que-es-card-label strong { font-size: 0.85rem; font-weight: 600; color: var(--text); }
     .pillars { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
     .pillar {
       display: flex; align-items: center; gap: 1rem;
@@ -357,6 +736,188 @@
 
     /* ─── 4. CÓMO FUNCIONA ──────────────────────────────── */
     #como-funciona { background: var(--bg-mid); }
+    #programas { background: var(--bg-mid); }
+    .programas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    .programa-card {
+      background: #111;
+      border: 1px solid var(--accent-1);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+    .programa-badge {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      background: var(--accent-1);
+      color: #000;
+      border-radius: 100px;
+      padding: 0.2rem 0.75rem;
+      align-self: flex-start;
+    }
+    .programa-badge-soon { background: var(--accent-3); color: #fff; }
+    .programa-badge-b2b  { background: var(--accent-2); color: #fff; }
+    .programa-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.3;
+    }
+    .programa-card h3 span { color: var(--accent-1); }
+    .programa-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .programa-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .programa-form input {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .programa-form input:focus { border-color: var(--accent-1); }
+    .programa-btn {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 100px;
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .programa-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .programa-btn-primary { background: var(--accent-1); color: #000; }
+    .programa-btn-outline {
+      background: transparent;
+      border: 1px solid var(--text);
+      color: var(--text);
+    }
+    .programa-votos {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .voto-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+    }
+    .voto-btn:hover { border-color: var(--accent-1); }
+    .voto-btn.voted { border-color: var(--accent-1); background: rgba(200,255,0,0.06); }
+    .wa-field {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .wa-country {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.6rem 0.5rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      outline: none;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .wa-country:focus { border-color: var(--accent-1); }
+    .wa-number { flex: 1; }
+    .voto-opciones {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .voto-opcion {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .voto-opcion:hover { border-color: rgba(200,255,0,0.4); color: var(--text); }
+    .voto-opcion.selected {
+      border-color: var(--accent-1);
+      background: rgba(200,255,0,0.07);
+      color: var(--text);
+    }
+    .voto-resultado {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding: 0.25rem 0;
+    }
+    .voto-resultado .voto-count {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--accent-1);
+    }
+    .programa-votos-bottom {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .programa-votos-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .voto-count {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--accent-1);
+      min-width: 1.5rem;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .programas-grid { grid-template-columns: 1fr; }
+    }
     .pasos-header { text-align: center; max-width: 640px; margin-inline: auto; margin-bottom: clamp(3rem, 6vw, 4rem); }
     .pasos-header h2 { margin-bottom: 1rem; }
     .pasos-header p { color: var(--text-muted); }
@@ -365,25 +926,39 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
+
+    /* flip shell */
     .paso {
-      padding: 2.5rem 2rem;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.015);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      perspective: 900px;
+      min-height: 280px;
     }
-    .paso:hover { transform: translateY(-6px); border-color: rgba(200,255,0,0.2); }
-    .paso::before {
-      content: '';
+    .paso-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4,0.2,0.2,1);
+      border-radius: 16px;
+    }
+    .paso:hover .paso-inner { transform: rotateY(180deg); }
+
+    /* shared face */
+    .paso-front,
+    .paso-back {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(200,255,0,0.04) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
     }
-    .paso:hover::before { opacity: 1; }
+
+    /* FRONT */
+    .paso-front {
+      background: rgba(255,255,255,0.015);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column;
+      position: absolute;
+    }
     .paso-num {
       font-family: var(--font-head);
       font-size: 4.5rem;
@@ -400,77 +975,181 @@
       border-radius: 12px;
       background: rgba(200,255,0,0.08);
     }
-    .paso h3 { margin-bottom: 0.75rem; font-size: 1.4rem; }
-    .paso h3 span { color: var(--accent-1); }
-    .paso p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+    .paso-front h3 { margin-bottom: 0.75rem; font-size: 1.4rem; }
+    .paso-front h3 span { color: var(--accent-1); }
+    .paso-front p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin: 0; }
+
+    /* BACK */
+    .paso-back {
+      transform: rotateY(180deg);
+      background: rgba(255,255,255,0.01);
+      border: 1px dashed rgba(200,255,0,0.2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.75rem;
+      text-align: center;
+    }
+    .paso-back-icon { font-size: 2rem; opacity: 0.6; }
+    .paso-back p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.6;
+      max-width: 200px;
+      margin: 0;
+    }
 
     /* ─── 5. SOBRE MARJO ────────────────────────────────── */
     #sobre-marjo { position: relative; overflow: hidden; }
-    .marjo-grid {
+    .sobre-header {
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+    }
+    .sobre-header h2 { margin-top: 0.5rem; }
+
+    /* grid 2x2 de líderes */
+    .lideres-grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: clamp(3rem, 7vw, 6rem);
-      align-items: center;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
-    .marjo-copy { order: -1; }
-    .marjo-copy h2 { margin-bottom: 1.5rem; }
-    .marjo-copy p { color: var(--text-muted); margin-bottom: 1rem; }
-    .marjo-copy p strong { color: var(--text); }
-    .marjo-copy .accent-line {
-      display: block;
-      font-family: var(--font-head);
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      font-weight: 700;
-      color: var(--accent-1);
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(200,255,0,0.2);
+    .lider-card {
+      perspective: 900px;
+      min-height: 360px;
     }
-    .marjo-photo-wrap {
+    .lider-inner {
       position: relative;
-    }
-    .marjo-photo {
-      aspect-ratio: 3/4;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .marjo-photo .photo-placeholder {
       width: 100%; height: 100%;
-      background: linear-gradient(160deg, #141f14 0%, #0a1210 50%, #13101a 100%);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 1rem;
-      text-align: center;
-      padding: 2rem;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4,0.2,0.2,1);
+      border-radius: 16px;
     }
-    .marjo-photo-badge {
-      position: absolute;
-      bottom: -1rem; right: -1rem;
+    .lider-card:hover .lider-inner { transform: rotateY(180deg); }
+
+    /* caras compartidas */
+    .lider-front, .lider-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex; flex-direction: column;
+    }
+
+    /* FRENTE — lado humano (default otras cards) */
+    .lider-front {
       background: var(--accent-1);
-      color: var(--bg);
-      font-weight: 800;
+      border: none;
+      align-items: center; justify-content: center;
+      text-align: center; gap: 1rem;
+    }
+    .lider-front-name {
       font-family: var(--font-head);
-      font-size: 0.85rem;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #000;
+    }
+    .lider-front-icon { font-size: 3rem; }
+    .lider-front p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(0,0,0,0.75);
+      max-width: 220px;
+      margin: 0;
+    }
+
+    /* FRENTE — card Marjo */
+    .lider-front-marjo {
+      background: #0f0f0f;
+      border: 1px solid rgba(255,255,255,0.07);
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 0;
+      padding: 0;
+    }
+    .lider-front-photo {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 16px 16px 0 0;
+    }
+    .lider-front-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .lider-front-text {
       padding: 1rem 1.25rem;
-      border-radius: 12px;
-      text-align: center;
-      line-height: 1.3;
-      max-width: 140px;
-      box-shadow: 0 8px 24px rgba(200,255,0,0.2);
+      display: flex; flex-direction: column; gap: 0.3rem;
     }
-    .marjo-stats {
-      display: flex; gap: 2rem; margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .stat { }
-    .stat-num {
-      font-family: var(--font-head);
-      font-size: 2.25rem;
+    .lider-front-text .lider-front-name {
+      color: var(--text);
+      font-size: 1rem;
       font-weight: 800;
-      line-height: 1;
+    }
+    .lider-front-text .lider-front-name .name-accent {
       color: var(--accent-1);
     }
-    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .lider-front-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* REVERSO — card Marjo */
+    .lider-back-marjo {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1rem;
+      border-color: rgba(255,255,255,0.08);
+    }
+    .lider-back-marjo p {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* REVERSO — lado profesional */
+    .lider-back {
+      transform: rotateY(180deg);
+      background: #0f0f0f;
+      border: 1px solid var(--accent-1);
+      align-items: stretch; justify-content: flex-start;
+      gap: 1rem;
+    }
+    .lider-photo {
+      flex: 1;
+      border-radius: 10px;
+      border: 1px dashed rgba(200,255,0,0.3);
+      background: #1a1a1a;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      min-height: 160px;
+      overflow: hidden;
+    }
+    .lider-photo-img {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+    .lider-photo-icon { font-size: 1.75rem; opacity: 0.5; }
+    .lider-info { display: flex; flex-direction: column; gap: 0.3rem; }
+    .lider-info span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .lider-info span.lider-nombre {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      font-style: normal;
+    }
 
     /* ─── 6. TESTIMONIOS ────────────────────────────────── */
     #testimonios { background: var(--bg-mid); }
@@ -592,8 +1271,11 @@
       .marjo-photo-badge { bottom: 1rem; right: 1rem; }
 
       .emociones-grid { grid-template-columns: 1fr; }
+      .comparativa-grid { grid-template-columns: 1fr; }
 
       .hero-scroll { display: none; }
+      .que-es-cards { flex-direction: column; }
+      .que-es-card-video { height: 200px; max-height: 200px; }
 
       nav { padding: 1rem 1.25rem; }
     }
@@ -608,9 +1290,9 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <div class="nav-logo">Lider Human<span>X</span></div>
+  <div class="nav-logo">Líder Human<span>X</span></div>
   <a
-    href="https://wa.me/51949193190?text=Hola%2C%20quiero%20saber%20más%20sobre%20Lider%20HumanX"
+    href="https://wa.me/51949193190?text=Hola%2C%20quiero%20saber%20más%20sobre%20Líder%20HumanX"
     class="nav-cta"
     target="_blank" rel="noopener"
     aria-label="Contactar por WhatsApp"
@@ -627,20 +1309,17 @@
   <div class="hero-shape hero-shape-2"></div>
 
   <div class="container hero-content">
-    <div class="hero-tag reveal">Talleres presenciales de liderazgo</div>
-
-    <h1 class="hero-title reveal" data-delay="1">
-      Lider<br>Human<em>X</em>
+    <h1 class="hero-title reveal">
+      Líder<br>Human<em>X</em>
     </h1>
 
-    <p class="hero-subtitle reveal" data-delay="2">
-      Para líderes que quieren <strong>inspirar y transformar</strong>, no solo dirigir.<br>
-      Lo hacemos con arte, música y movimiento&nbsp;— suena raro hasta que lo vives.
+    <p class="hero-tagline reveal" data-delay="1">
+      Para líderes que quieren inspirar, transformar y trascender.
     </p>
 
-    <div class="hero-actions reveal" data-delay="3">
+<div class="hero-actions reveal" data-delay="3">
       <a
-        href="https://wa.me/51949193190?text=Hola%2C%20quiero%20saber%20más%20sobre%20Lider%20HumanX"
+        href="https://wa.me/51949193190?text=Hola%2C%20quiero%20saber%20más%20sobre%20Líder%20HumanX"
         class="btn-primary"
         target="_blank" rel="noopener"
       >
@@ -654,53 +1333,127 @@
     </div>
   </div>
 
+  <!-- scroll indicator -->
   <div class="hero-scroll" aria-hidden="true">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- 1.5 PARA QUIÉN ES -->
+<section id="para-quien" style="padding-block: clamp(3rem, 7vw, 5rem); background: var(--bg);">
+  <div class="container" style="text-align: center;">
+    <span class="eyebrow reveal">EL FUTURO DE LA GESTIÓN DE PERSONAS</span>
+    <h2 class="reveal" data-delay="1" style="max-width: 700px; margin-inline: auto; margin-top: 0.5rem;">
+      Bienestar integral y salud mental como prioridad
+    </h2>
+    <p class="reveal" data-delay="2" style="color: var(--text-muted); max-width: 640px; margin-inline: auto; margin-top: 1rem; line-height: 1.75;">
+      El bienestar dejará de ser un beneficio aislado y se transformará en un componente estratégico. En países con jornadas extensas y alta rotación, la salud mental en el trabajo será un eje relevante para 2027.<br><br>Los Programas de Bienestar que incluyan <strong>acompañamiento emocional</strong>, <strong>liderazgo empático</strong>, pausas activas o actividad física tendrán un impacto directo en compromiso, calidad de vida y reputación empleadora. Estos programas, diseñados con datos y escucha activa, reducirán riesgos psicosociales y fortalecerán la relación laboral.
+    </p>
   </div>
 </section>
 
 <!-- 2. EL PROBLEMA -->
 <section id="problema">
   <div class="container">
-    <div class="problema-grid">
-      <div class="problema-copy">
-        <span class="eyebrow reveal">El contexto real</span>
-        <h2 class="reveal" data-delay="1">
-          Tienes todo<br>bajo control.<br>
-          <span style="color:var(--accent-2)">Menos lo de adentro.</span>
-        </h2>
-        <p class="reveal" data-delay="2">
-          Eres el tipo de líder que resuelve todo. El que tiene la respuesta, el plan y la energía. <strong>Por fuera.</strong>
-        </p>
-        <p class="reveal" data-delay="3">
-          Por dentro, cargás solo. Las decisiones pesan, el equipo no siempre entiende, y hay algo que nunca te enseñaron a hacer: <strong>sentir sin que te cueste la autoridad.</strong>
-        </p>
-        <p class="reveal" data-delay="4">
-          Hay cuatro emociones que los líderes de alta exigencia aprenden a suprimir desde temprano. No porque sean débiles — sino porque nadie les dio herramientas para gestionarlas.
-        </p>
+    <div class="reveal" style="margin-bottom: clamp(2rem, 4vw, 3rem);">
+      <span class="eyebrow">El problema real</span>
+    </div>
+
+    <div class="comparativa-grid reveal" data-delay="1">
+      <!-- SIN — primero -->
+      <div class="comparativa-col col-sin">
+        <h2 style="color:var(--accent-2); margin-top:0; margin-bottom:1.25rem;">Sin líderes humanos.</h2>
+        <div class="sin-cards-grid">
+
+          <div class="sin-card">
+            <div class="sin-card-inner">
+              <div class="sin-card-front">
+                <span class="sin-icon">✗</span>
+                <p>Te sientes juzgadx y aprendes a callarte</p>
+              </div>
+              <div class="sin-card-back">
+                <p>Solo el 47% de los trabajadores describe su lugar de trabajo como psicológicamente seguro. Más de la mitad no lo siente así.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sin-card">
+            <div class="sin-card-inner">
+              <div class="sin-card-front">
+                <span class="sin-icon">✗</span>
+                <p>Pedir ayuda se siente como debilidad</p>
+              </div>
+              <div class="sin-card-back">
+                <p>Entre el 70% y el 80% de los profesionales vive el síndrome del impostor en algún momento de su carrera, y la mayoría lo esconde en vez de nombrarlo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sin-card">
+            <div class="sin-card-inner">
+              <div class="sin-card-front">
+                <span class="sin-icon">✗</span>
+                <p>Eres un número, un resultado, una métrica</p>
+              </div>
+              <div class="sin-card-back">
+                <p>Existe una escala clínica (Maslach Burnout Inventory) que te reduce a 3 puntajes. Cuando llegas ahí, ya no eres persona, eres estadística de burnout.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sin-card">
+            <div class="sin-card-inner">
+              <div class="sin-card-front">
+                <span class="sin-icon">✗</span>
+                <p>Solo importa el negocio, y lo tuyo&nbsp;… puede esperar</p>
+              </div>
+              <div class="sin-card-back">
+                <p>Suprimir lo que sientes mientras lidias con situaciones difíciles dispara tu riesgo de insomnio hasta 10 veces. Tu cuerpo factura la cuenta que nadie ve.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sin-card">
+            <div class="sin-card-inner">
+              <div class="sin-card-front">
+                <span class="sin-icon">✗</span>
+                <p>Tienes que "estar bien" aunque no lo estés</p>
+              </div>
+              <div class="sin-card-back">
+                <p>Fingir que estás bien (actuación superficial) explica hasta el 55% del burnout. No es debilidad tuya, es el costo de la máscara.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div class="emociones-grid reveal" data-delay="2">
-        <div class="emocion-card yellow">
-          <div class="emocion-num">01</div>
-          <h3>Enojo</h3>
-          <p>"Si me enojo, pierdo el respeto." — y así lo guardás hasta que revienta por donde no querés.</p>
-        </div>
-        <div class="emocion-card pink">
-          <div class="emocion-num">02</div>
-          <h3>Frustración</h3>
-          <p>La que se viste de exigencia. La que te hace repetir mil veces lo que nadie hace bien según tus estándares.</p>
-        </div>
-        <div class="emocion-card purple">
-          <div class="emocion-num">03</div>
-          <h3>Tristeza</h3>
-          <p>Esa que ni nombre le pones. Solo sabés que algo pesa, que estás cansadx, que ya no es como antes.</p>
-        </div>
-        <div class="emocion-card white">
-          <div class="emocion-num">04</div>
-          <h3>Injusticia</h3>
-          <p>La que te paraliza o te hace explotar. "Yo hago todo bien y aún así…" — sí, la conocés bien.</p>
-        </div>
+      <!-- CON — después -->
+      <div class="comparativa-col col-con">
+        <h2 style="color:var(--accent-1); margin-top:0; margin-bottom:1.25rem;">Con líderes humanxs.</h2>
+        <ul class="comparativa-list">
+          <li>
+            <span class="comp-icon comp-icon-yes">✓</span>
+            Puedes mostrarte real, sin filtros, sin máscaras
+          </li>
+          <li>
+            <span class="comp-icon comp-icon-yes">✓</span>
+            Sabes que hay alguien que realmente escucha
+          </li>
+          <li>
+            <span class="comp-icon comp-icon-yes">✓</span>
+            Sonríes más, disfrutas más, y lo das todo
+          </li>
+          <li>
+            <span class="comp-icon comp-icon-yes">✓</span>
+            Ves que hay vida más allá del rol, y eso es humanx
+          </li>
+          <li>
+            <span class="comp-icon comp-icon-yes">✓</span>
+            Tu líder te inspira siendo humanx también
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -709,85 +1462,176 @@
 <!-- 3. QUÉ ES LIDER HUMANX -->
 <section id="que-es">
   <div class="container">
-    <div class="que-es-inner">
-      <div class="que-es-photo reveal">
-        <div class="photo-placeholder">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <span class="photo-note">📸 Foto del taller en acción — participantes en movimiento, expresión real, sin posados corporativos</span>
+
+    <!-- Eyebrow + H2 centrado -->
+    <div class="que-es-header">
+      <span class="eyebrow reveal">¿QUÉ ES LÍDER HUMANX?</span>
+      <h2 class="reveal" data-delay="1">
+        No es un curso más.<br>Es una <span style="color:var(--accent-1)">experiencia.</span>
+      </h2>
+    </div>
+
+    <!-- Párrafos centrados -->
+    <div class="que-es-body">
+
+      <!-- Frase impacto -->
+      <p class="que-es-impact reveal" data-delay="3">
+        El liderazgo no se estudia, se practica.
+      </p>
+
+      <!-- Timeline vertical -->
+      <div class="que-es-timeline reveal" data-delay="4">
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-body">
+            <h4>En reuniones con tu equipo</h4>
+            <p>Cuando sientes los nervios y la adrenalina antes de una conversación difícil. Cuando estás enojadx, quieres explotar y estás en medio de una reunión. Cuando una situación te desborda y debes seguir ...</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-body">
+            <h4>Sentir es humano</h4>
+            <p>Nos educan para memorizar, calificar y aprobar. Nos enseñan estrategia, procesos y resultados. Pero nadie nos enseña qué hacer con lo que sentimos. Si no sabes cómo gestionar la frustración, la presión o la incertidumbre, no es por falta de capacidad; es por falta de entrenamiento.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div class="timeline-body">
+            <h4>Por eso creamos este espacio</h4>
+            <p>Para liderar a otros, primero debes aprender a liderarte. En Líder HumanX recreamos el enojo, el miedo, la frustración, la tristeza y otras emociones en un entorno seguro y controlado, y te llevamos a habitarlas a través del arte, la música y el movimiento. Cero teorías. Venimos a experimentar la emoción.</p>
+          </div>
         </div>
       </div>
 
-      <div class="que-es-copy">
-        <span class="eyebrow reveal">Qué es Lider HumanX</span>
-        <h2 class="reveal" data-delay="1">
-          No es un curso.<br>Es una<br><span style="color:var(--accent-1)">experiencia.</span>
-        </h2>
-        <p class="reveal" data-delay="2">
-          Lider HumanX es un taller presencial donde los líderes aprenden a <strong>reconocer y gestionar sus emociones</strong> usando arte, música y movimiento como herramientas reales.
-        </p>
-        <p class="reveal" data-delay="3">
-          No teoría. No coaching de manual. Un espacio seguro y controlado donde lo que sentís tiene nombre, tiene cuerpo, y tiene salida.
-        </p>
-        <p class="reveal" data-delay="4">
-          Sí, suena raro. Lo decimos nosotros primero. <strong>Pero los resultados son los que hacen que la gente vuelva.</strong>
-        </p>
-
-        <div class="pillars reveal" data-delay="5">
-          <div class="pillar">
-            <div class="pillar-icon">🎨</div>
-            <div class="pillar-text">
-              <h4>Arte</h4>
-              <p>Para sacar lo que no tiene palabras todavía.</p>
-            </div>
+      <!-- Pills accordion -->
+      <div class="que-es-pills reveal" data-delay="5">
+        <span class="que-es-pill" data-panel="movimiento">💃 Movimiento</span>
+        <span class="que-es-pill" data-panel="musica">🎵 Música</span>
+        <span class="que-es-pill" data-panel="arte">🎨 Arte</span>
+        <span class="que-es-pill" data-panel="comunidad">🤝 Comunidad</span>
+      </div>
+      <div class="que-es-accordion-panels">
+        <div class="que-es-panel" id="panel-movimiento">
+          <div class="que-es-panel-inner">
+            <div class="que-es-panel-content">El cuerpo es el mapa donde se manifiesta la tensión acumulada. A través del movimiento somático y expresión corporal, el líder estimula el nervio vago mediante respiración diafragmática y liberación muscular — descargando físicamente la ansiedad y ampliando su ventana de tolerancia emocional.</div>
           </div>
-          <div class="pillar">
-            <div class="pillar-icon">🎵</div>
-            <div class="pillar-text">
-              <h4>Música</h4>
-              <p>Para mover lo que el cuerpo guarda sin que la mente lo sepa.</p>
-            </div>
+        </div>
+        <div class="que-es-panel" id="panel-musica">
+          <div class="que-es-panel-inner">
+            <div class="que-es-panel-content">Utiliza frecuencias y ritmos específicos para ayudar al líder a entrar en contacto con estados emocionales reprimidos de forma segura, permitiendo que la armadura cognitiva se relaje y desactive sus defensas intelectuales.</div>
           </div>
-          <div class="pillar">
-            <div class="pillar-icon">🕺</div>
-            <div class="pillar-text">
-              <h4>Movimiento</h4>
-              <p>Porque la emoción vive en el cuerpo, no en el PowerPoint.</p>
-            </div>
+        </div>
+        <div class="que-es-panel" id="panel-arte">
+          <div class="que-es-panel-inner">
+            <div class="que-es-panel-content">Funciona como canal de proyección no verbal y simbólico. Permite externalizar gráficamente la frustración, la tristeza o el nudo del impostor, rompiendo la prisión del sobrepensamiento cuando las palabras o el rol corporativo impiden expresarlo.</div>
+          </div>
+        </div>
+        <div class="que-es-panel" id="panel-comunidad">
+          <div class="que-es-panel-inner">
+            <div class="que-es-panel-content">✏️ Agrega contenido de Comunidad aquí</div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Eyebrow secundario -->
+    <div class="que-es-eyebrow2 reveal">
+      <span class="eyebrow">ASÍ SE VIVEN NUESTROS TALLERES</span>
+    </div>
+
+    <!-- Grid 2x2 videos -->
+    <div class="que-es-cards reveal" data-delay="1">
+      <div class="que-es-card">
+        <div class="que-es-card-video">
+          <video src="assets/arte-virtual.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="que-es-card-label">
+          <strong>🎨 Arte Virtual</strong>
+        </div>
+      </div>
+      <div class="que-es-card">
+        <div class="que-es-card-video">
+          <video src="assets/movimiento-presencial.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="que-es-card-label">
+          <strong>💃 Movimiento Presencial</strong>
+        </div>
+      </div>
+      <div class="que-es-card">
+        <div class="que-es-card-video">
+          <video src="assets/arte-presencial.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="que-es-card-label">
+          <strong>🎨 Arte Presencial</strong>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- 4. CÓMO FUNCIONA -->
-<section id="como-funciona">
+<!-- 4. NUESTROS PROGRAMAS -->
+<section id="programas">
   <div class="container">
     <div class="pasos-header">
-      <span class="eyebrow reveal">Los 3 pasos</span>
-      <h2 class="reveal" data-delay="1">Así funciona<br>la transformación</h2>
-      <p class="reveal" data-delay="2">No es magia. Es un proceso concreto que te damos en formato que podés usar desde el lunes siguiente.</p>
+      <span class="eyebrow reveal">NUESTROS PROGRAMAS</span>
+      <h2 class="reveal" data-delay="1">Elige cómo quieres empezar</h2>
     </div>
 
-    <div class="pasos-grid">
-      <div class="paso reveal" data-delay="1">
-        <div class="paso-num">01</div>
-        <div class="paso-icon">👁️</div>
-        <h3><span>Reconocer</span></h3>
-        <p>Admitir lo que sentís sin juzgarlo. No "debería sentir", sino qué sentís. Suena básico. Es lo que más cuesta y lo que más cambia todo.</p>
+    <div class="programas-grid">
+
+      <!-- CARD 1: Masterclass Gratuita -->
+      <div class="programa-card reveal" data-delay="1">
+        <div class="programa-badge">ONLINE</div>
+        <h3>Masterclass Líder HumanX<br><span>Edición Gratuita</span></h3>
+        <p class="programa-desc">Una sesión online gratuita donde vivimos juntos una emoción.</p>
+        <form class="programa-form" onsubmit="return false;" style="margin-top:auto;">
+          <input type="text" placeholder="Tu nombre" autocomplete="off">
+          <div class="wa-field">
+            <select class="wa-country" aria-label="Código de país">
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+56">🇨🇱 +56</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+58">🇻🇪 +58</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+591">🇧🇴 +591</option>
+              <option value="+595">🇵🇾 +595</option>
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+1">🇺🇸 +1</option>
+            </select>
+            <input type="tel" placeholder="Número de WhatsApp" autocomplete="off" class="wa-number">
+          </div>
+          <button type="submit" class="programa-btn programa-btn-primary">Quiero mi lugar</button>
+        </form>
       </div>
-      <div class="paso reveal" data-delay="2">
-        <div class="paso-num">02</div>
-        <div class="paso-icon">🔧</div>
-        <h3><span>Gestionar</span></h3>
-        <p>Límites, hábitos corporales, herramientas concretas. Nada de "respira hondo". Estrategias reales para líderes reales con agendas reales.</p>
+
+      <!-- CARD 2: Taller Presencial -->
+      <div class="programa-card reveal" data-delay="2">
+        <div class="programa-badge programa-badge-soon">PRESENCIAL</div>
+        <h3>Taller Presencial<br><span>Lima - Perú</span></h3>
+        <p class="programa-desc">Un día completo. El tema lo decides tú.</p>
+        <div class="voto-opciones">
+          <button class="voto-opcion" data-tema="impostor">Síndrome del Impostor</button>
+          <button class="voto-opcion" data-tema="limites">Poner Límites</button>
+          <button class="voto-opcion" data-tema="comunicacion">Comunicación Difícil</button>
+        </div>
+        <div class="programa-votos-bottom">
+          <button class="programa-btn programa-btn-primary" id="btn-votar" disabled>Votar</button>
+        </div>
       </div>
-      <div class="paso reveal" data-delay="3">
-        <div class="paso-num">03</div>
-        <div class="paso-icon">🔁</div>
-        <h3><span>Reconocer en el otro</span></h3>
-        <p>Cuando cambiás vos, cambia tu entorno. Empezás a leer lo que tu equipo no dice. Y eso — eso es liderazgo de verdad.</p>
+
+      <!-- CARD 3: Empresas -->
+      <div class="programa-card reveal" data-delay="3">
+        <div class="programa-badge programa-badge-b2b">EMPRESAS</div>
+        <h3>Programa<br><span>Líder HumanX</span></h3>
+        <p class="programa-desc">Para equipos que quieren liderar diferente. Síndrome del Impostor, Límites y Comunicación Difícil. Disponibles para tu organización.</p>
+        <a href="https://wa.me/51949193190" target="_blank" rel="noopener" class="programa-btn programa-btn-primary" style="margin-top:auto;text-decoration:none;display:inline-block;text-align:center;">Hablemos</a>
       </div>
+
     </div>
   </div>
 </section>
@@ -795,52 +1639,93 @@
 <!-- 5. SOBRE MARJO -->
 <section id="sobre-marjo">
   <div class="container">
-    <div class="marjo-grid">
-      <div class="marjo-copy">
-        <span class="eyebrow reveal">Quién está detrás</span>
-        <h2 class="reveal" data-delay="1">
-          Hola,<br>soy <span style="color:var(--accent-1)">Marjo.</span>
-        </h2>
-        <p class="reveal" data-delay="2">
-          Llevo años en el mundo de startups, Customer Success y RevOps. Lideré equipos, armé procesos desde cero, y aprendí a la mala lo que nadie te enseña en ningún MBA: cómo seguir siendo vos mientras liderás.
-        </p>
-        <p class="reveal" data-delay="3">
-          <strong>Creé Lider HumanX porque lo necesitaba yo.</strong> Y porque cuando lo trabajé — con arte, música y movimiento, que sí, también me pareció raro — algo en mí cambió de base.
-        </p>
-        <p class="reveal" data-delay="4">
-          Creo que el liderazgo más poderoso viene de adentro. No del control, no de la autoridad. De la claridad de quién sos y qué sentís cuando nadie está mirando.
-        </p>
-        <span class="accent-line reveal" data-delay="5">
-          "El líder que se conoce a sí mismo no tiene que demostrar nada."
-        </span>
 
-        <div class="marjo-stats reveal" data-delay="5">
-          <div class="stat">
-            <div class="stat-num">+8</div>
-            <div class="stat-label">años liderando<br>equipos reales</div>
+    <div class="sobre-header">
+      <span class="eyebrow reveal">¿Quiénes están detrás?</span>
+      <h2 class="reveal" data-delay="1">Hola, somos líderes <span style="color:var(--accent-1)">Humanxs</span></h2>
+    </div>
+
+    <div class="lideres-grid">
+
+      <div class="lider-card reveal" data-delay="1">
+        <div class="lider-inner">
+          <div class="lider-front lider-front-marjo">
+            <div class="lider-front-photo">
+              <img src="assets/marjo.png" alt="Marjo">
+            </div>
+            <div class="lider-front-text">
+              <span class="lider-front-name">Hola, soy <span class="name-accent">Marjo</span></span>
+              <p>Y hago meditar a mi equipo en las reuniones.</p>
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-num">3</div>
-            <div class="stat-label">herramientas que<br>nadie usa (y funcionan)</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">presencial,<br>sin shortcuts</div>
+          <div class="lider-back lider-back-marjo">
+            <p>Ingeniera Industrial, Empresaria y Profesora de Danza Primal</p>
+            <p>10 años trabajando en startups en América Latina</p>
+            <p>34 años siendo humanx</p>
           </div>
         </div>
       </div>
 
-      <div class="marjo-photo-wrap reveal" data-delay="2">
-        <div class="marjo-photo">
-          <div class="photo-placeholder">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-            <span class="photo-note" style="color:var(--text-muted); font-size:0.8rem; line-height:1.5; max-width:200px;">📸 Foto tuya — algo auténtico. Con tus tatuajes si quieres. Nada de foto corporativa con saco.</span>
+      <div class="lider-card reveal" data-delay="2">
+        <div class="lider-inner">
+          <div class="lider-front">
+            <div class="lider-front-icon">🎵</div>
+            <p>✏️ Mi lado humano: música, cocina, viajes...</p>
+          </div>
+          <div class="lider-back">
+            <div class="lider-photo">
+              <span class="lider-photo-icon">📷</span>
+              <span>Tu foto</span>
+            </div>
+            <div class="lider-info">
+              <span class="lider-nombre">✏️ Nombre</span>
+              <span>✏️ Años de experiencia</span>
+              <span>✏️ Profesión</span>
+            </div>
           </div>
         </div>
-        <div class="marjo-photo-badge">
-          Creadora<br>Lider HumanX
+      </div>
+
+      <div class="lider-card reveal" data-delay="3">
+        <div class="lider-inner">
+          <div class="lider-front">
+            <div class="lider-front-icon">🎨</div>
+            <p>✏️ Mi lado humano: arte, escritura, montaña...</p>
+          </div>
+          <div class="lider-back">
+            <div class="lider-photo">
+              <span class="lider-photo-icon">📷</span>
+              <span>Tu foto</span>
+            </div>
+            <div class="lider-info">
+              <span class="lider-nombre">✏️ Nombre</span>
+              <span>✏️ Años de experiencia</span>
+              <span>✏️ Profesión</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="lider-card reveal" data-delay="4">
+        <div class="lider-inner">
+          <div class="lider-front">
+            <div class="lider-front-icon">💃</div>
+            <p>✏️ Mi lado humano: danza, familia, silencio...</p>
+          </div>
+          <div class="lider-back">
+            <div class="lider-photo">
+              <span class="lider-photo-icon">📷</span>
+              <span>Tu foto</span>
+            </div>
+            <div class="lider-info">
+              <span class="lider-nombre">✏️ Nombre</span>
+              <span>✏️ Años de experiencia</span>
+              <span>✏️ Profesión</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -857,7 +1742,7 @@
     <div class="testimonios-grid">
       <!-- Testimonio 1 -->
       <div class="testimonio reveal" data-delay="1">
-        <div class="placeholder-badge">Testimonio real — reemplazar</div>
+        <div class="placeholder-badge">Testimonio real: reemplazar</div>
         <div class="testimonio-quote">"</div>
         <p class="testimonio-text">
           Llegué esperando algo tipo retiro de meditación con PowerPoint. Lo que me llevé fue entender <strong>por qué explotaba con mi equipo cada vez que sentía que perdía el control.</strong> No lo vi venir.
@@ -873,7 +1758,7 @@
 
       <!-- Testimonio 2 -->
       <div class="testimonio reveal" data-delay="2">
-        <div class="placeholder-badge">Testimonio real — reemplazar</div>
+        <div class="placeholder-badge">Testimonio real: reemplazar</div>
         <div class="testimonio-quote">"</div>
         <p class="testimonio-text">
           Soy de las que creen que "gestionar emociones" es para gente que no sabe tomar decisiones. <strong>Este taller me demostró exactamente lo contrario.</strong> Y lo hizo de una forma que no me dio ganas de salir corriendo.
@@ -889,7 +1774,7 @@
 
       <!-- Testimonio 3 -->
       <div class="testimonio reveal" data-delay="3">
-        <div class="placeholder-badge">Testimonio real — reemplazar</div>
+        <div class="placeholder-badge">Testimonio real: reemplazar</div>
         <div class="testimonio-quote">"</div>
         <p class="testimonio-text">
           El lunes siguiente tuve una conversación difícil con mi co-founder que en otro momento hubiera terminado mal. <strong>Esta vez la pude sostener.</strong> No sé explicar bien qué cambió. Pero algo cambió.
@@ -919,7 +1804,7 @@
         Mandame un mensaje y hablamos. Sin formularios. Sin llamadas de 45 minutos con 3 personas de ventas. Solo vos y yo viendo si esto tiene sentido para ti.
       </p>
       <a
-        href="https://wa.me/51949193190?text=Hola%20Marjo%2C%20quiero%20saber%20más%20sobre%20Lider%20HumanX"
+        href="https://wa.me/51949193190?text=Hola%20Marjo%2C%20quiero%20saber%20más%20sobre%20Líder%20HumanX"
         class="cta-wa reveal"
         data-delay="3"
         target="_blank" rel="noopener"
@@ -927,17 +1812,14 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.103 1.51 5.833L.067 23.49a.5.5 0 0 0 .609.63l5.825-1.525A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.946 9.946 0 0 1-5.124-1.415l-.369-.22-3.556.932.95-3.461-.24-.38A9.952 9.952 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Escribir a Marjo por WhatsApp
       </a>
-      <p class="cta-note reveal" data-delay="4">
-        +51 949 193 190 · Responde en menos de 24h
-      </p>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">Lider Human<span>X</span></div>
-  <p>© 2026 Lider HumanX · Talleres presenciales de liderazgo</p>
+  <div class="footer-brand">Líder Human<span>X</span></div>
+  <p>© 2026 Líder HumanX · Talleres presenciales y virtuales de liderazgo</p>
   <p>Hecho con intención, no con templates.</p>
 </footer>
 
@@ -1003,6 +1885,66 @@
     }, 6000);
   }, 'reveal');
 
+})();
+
+// Votos talleres (localStorage)
+(function () {
+  var LS_VOTOS  = 'lhx_votos';
+  var LS_VOTADO = 'lhx_votado';
+  var votos   = JSON.parse(localStorage.getItem(LS_VOTOS) || '{"impostor":0,"limites":0,"comunicacion":0}');
+  var votado  = localStorage.getItem(LS_VOTADO) || null;
+  var seleccion = null;
+  var btnVotar = document.getElementById('btn-votar');
+
+  if (votado) {
+    document.querySelectorAll('.voto-opcion').forEach(function (b) {
+      b.classList.toggle('selected', b.dataset.tema === votado);
+    });
+    if (btnVotar) { btnVotar.textContent = 'Ya votaste'; btnVotar.disabled = true; }
+  }
+
+  document.querySelectorAll('.voto-opcion').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (votado) return;
+      seleccion = btn.dataset.tema;
+      document.querySelectorAll('.voto-opcion').forEach(function (b) {
+        b.classList.toggle('selected', b.dataset.tema === seleccion);
+      });
+      if (btnVotar) btnVotar.disabled = false;
+    });
+  });
+
+  if (btnVotar) {
+    btnVotar.addEventListener('click', function () {
+      if (!seleccion || votado) return;
+      votos[seleccion] = (votos[seleccion] || 0) + 1;
+      votado = seleccion;
+      localStorage.setItem(LS_VOTOS, JSON.stringify(votos));
+      localStorage.setItem(LS_VOTADO, votado);
+      btnVotar.textContent = 'Ya votaste';
+      btnVotar.disabled = true;
+    });
+  }
+})();
+
+// Pills accordion
+(function () {
+  var pills = document.querySelectorAll('.que-es-pill[data-panel]');
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      var key = pill.dataset.panel;
+      var isActive = pill.classList.contains('active');
+      // close all
+      pills.forEach(function (p) { p.classList.remove('active'); });
+      document.querySelectorAll('.que-es-panel').forEach(function (panel) { panel.classList.remove('open'); });
+      // open clicked (toggle)
+      if (!isActive) {
+        pill.classList.add('active');
+        var panel = document.getElementById('panel-' + key);
+        if (panel) panel.classList.add('open');
+      }
+    });
+  });
 })();
 </script>
 
