@@ -5,21 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Líder HumanX: Para líderes que quieren inspirar y transformar, no solo dirigir. Talleres presenciales y virtuales con arte, música y movimiento." />
   <title>Líder HumanX</title>
-  <!-- Google Analytics 4 — skip on localhost -->
+  <!-- Google Tag Manager — skip on localhost -->
   <script>
+    window.dataLayer = window.dataLayer || [];
     if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-RFK201FH3F';
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-RFK201FH3F');
-      window._gaReady = true;
-    } else {
-      window.gtag = function(){};
-      window._gaReady = false;
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MW4VRNFS');
     }
   </script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/Kit-Persona-X/LiderHumanX-linkedin-perfil-persona-x.png" />
@@ -2087,6 +2081,9 @@
   </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW4VRNFS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- SPLASH -->
 <div id="splash" role="presentation" aria-hidden="true">
@@ -2566,11 +2563,11 @@
       if (!a) return;
       var type = a.dataset.track;
       if (type === 'agendar') {
-        gtag('event', 'agendar_click', { ubicacion: a.dataset.ubicacion || '' });
+        dataLayer.push({ event: 'agendar_click', ubicacion: a.dataset.ubicacion || '' });
       } else if (type === 'linkedin') {
-        gtag('event', 'linkedin_click', { persona: a.dataset.persona || '' });
+        dataLayer.push({ event: 'linkedin_click', persona: a.dataset.persona || '' });
       } else if (type === 'epti') {
-        gtag('event', 'epti_click');
+        dataLayer.push({ event: 'epti_click' });
       }
     });
 
@@ -2583,7 +2580,7 @@
         var id = entry.target.id;
         if (entry.isIntersecting && !seen[id]) {
           seen[id] = true;
-          gtag('event', 'seccion_vista', { seccion: id });
+          dataLayer.push({ event: 'seccion_vista', seccion: id });
         }
       });
     }, { threshold: 0.3 });
