@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Líder HumanX: Para líderes que quieren inspirar y transformar, no solo dirigir. Talleres presenciales y virtuales con arte, música y movimiento." />
   <title>Líder HumanX</title>
+  <!-- Google Analytics 4 — skip on localhost -->
+  <script>
+    if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-RFK201FH3F';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RFK201FH3F');
+      window._gaReady = true;
+    } else {
+      window.gtag = function(){};
+      window._gaReady = false;
+    }
+  </script>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/Kit-Persona-X/LiderHumanX-linkedin-perfil-persona-x.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/Kit-Persona-X/LiderHumanX-linkedin-perfil-persona-x.png" />
   <meta property="og:image" content="assets/Kit-Persona-X/LiderHumanX-linkedin-fondo-1-bosque.png" />
@@ -2090,9 +2107,9 @@
     <!-- texto ancho completo -->
     <div class="hero-text reveal">
       <h1 class="hero-h1"><span class="h1-line">Cuando cambia la manera de <em class="accent-serif">liderar</em>,</span><span class="h1-line">cambia la manera de trabajar.</span></h1>
-      <p class="hero-subtitle-text">Talleres presenciales para líderes y equipos. Trabajamos desde dónde lideras: con el cuerpo, no con más teoría.</p>
+      <p class="hero-subtitle-text">Programa de entrenamiento para líderes y equipos. Trabajamos desde dónde lideras: con el cuerpo, no con más teoría.</p>
       <div class="hero-alianza reveal" data-delay="2">
-        <a href="https://www.transpersonals.com/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; opacity:0.65; transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.65'">
+        <a href="https://www.transpersonals.com/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; opacity:0.65; transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.65'" data-track="epti">
           <img src="assets/IMAGOTIPO_EPTI_V1-8.svg" alt="EPTI" style="height:33px; width:auto; filter:brightness(0) invert(1);">
         </a>
         <span style="font-family:'Instrument Serif',serif; font-style:italic; font-size:14px; color:rgba(244,239,230,0.55);">En alianza con EPTI · 40 años · sedes en América y Europa</span>
@@ -2134,9 +2151,8 @@
   <div class="tf-inner">
     <div class="tf-header reveal">
       <h2 class="tf-h2 section-title">Te formaron para dirigir.<br>Nadie te enseñó qué hacer con <em class="accent-serif">lo que sientes.</em></h2>
-      <p class="section-subtitle section-subtitle--light">Estas son las emociones que un líder "no debería" sentir.</p>
     </div>
-    <div class="tf-cards">
+    <div class="tf-cards" style="margin-top:2.5rem;">
       <div class="tf-card tf-card-light reveal">
         <div class="tf-num">01</div>
         <p class="tf-title">Enojo y frustración</p>
@@ -2199,7 +2215,7 @@
 
     </div>
     <div style="text-align:center; margin-top:2.5rem;">
-      <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary reveal">Agendemos 30 min</a>
+      <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary reveal" data-track="agendar" data-ubicacion="areas">Agendemos 30 min</a>
     </div>
   </div>
 </section>
@@ -2314,7 +2330,7 @@
       </div>
     </div>
     <div style="text-align:center; margin-top:3rem;">
-      <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary reveal">Agendemos 30 min</a>
+      <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary reveal" data-track="agendar" data-ubicacion="academy">Agendemos 30 min</a>
     </div>
   </div>
 </section>
@@ -2341,7 +2357,7 @@
               <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:0.2rem;">Marjorie Córdova</h3>
               <p style="font-size:0.8rem; color:var(--text-muted);">Co-fundadora · Facilitadora</p>
             </div>
-            <a href="https://www.linkedin.com/in/marjorie-cordova-291a7262/" target="_blank" rel="noopener" aria-label="LinkedIn de Marjorie" class="li-icon">
+            <a href="https://www.linkedin.com/in/marjorie-cordova-291a7262/" target="_blank" rel="noopener" aria-label="LinkedIn de Marjorie" class="li-icon" data-track="linkedin" data-persona="marjorie">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
           </div>
@@ -2360,7 +2376,7 @@
               <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:0.2rem;">Emmanuel Pérez</h3>
               <p style="font-size:0.8rem; color:var(--text-muted);">Co-fundador · Facilitador</p>
             </div>
-            <a href="https://www.linkedin.com/in/emmanuel-perez-b67488174/" target="_blank" rel="noopener" aria-label="LinkedIn de Emmanuel" class="li-icon">
+            <a href="https://www.linkedin.com/in/emmanuel-perez-b67488174/" target="_blank" rel="noopener" aria-label="LinkedIn de Emmanuel" class="li-icon" data-track="linkedin" data-persona="emmanuel">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
           </div>
@@ -2372,13 +2388,13 @@
 
     <!-- Alianza EPTI destacada -->
     <div class="reveal" data-delay="3" style="border:1px solid rgba(242,183,5,0.25); border-radius:20px; padding:2.5rem 2rem; background:rgba(242,183,5,0.04); display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.25rem; margin-top:0.5rem;">
-      <a href="https://www.transpersonals.com/" target="_blank" rel="noopener" style="opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+      <a href="https://www.transpersonals.com/" target="_blank" rel="noopener" style="opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'" data-track="epti">
         <img src="assets/IMAGOTIPO_EPTI_V1-8.svg" alt="EPTI" style="height:60px; width:auto; filter:brightness(0) invert(1);">
       </a>
       <div>
         <p style="font-family:var(--font-head); font-size:0.9rem; font-weight:800; letter-spacing:0.1em; color:var(--ambar); margin:0 0 0.4rem;">EN ALIANZA CON EPTI</p>
         <p style="font-size:1.08rem; font-weight:700; color:var(--crema); margin:0 0 0.3rem;">Escuela de Psicología Transpersonal Integrativa · 40 años · sedes en América y Europa</p>
-        <a href="https://www.transpersonals.com/" target="_blank" rel="noopener" style="font-size:0.96rem; color:var(--ambar); text-decoration:none; opacity:0.8;">transpersonals.com →</a>
+        <a href="https://www.transpersonals.com/" target="_blank" rel="noopener" style="font-size:0.96rem; color:var(--ambar); text-decoration:none; opacity:0.8;" data-track="epti">transpersonals.com →</a>
       </div>
     </div>
 
@@ -2395,7 +2411,7 @@
         ¿Conversamos 30 minutos? Nos cuentas qué está pasando en tu organización y te decimos si los talleres de Líder HumanX son para ti.
       </p>
       <div class="reveal" data-delay="3" style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
-        <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary">Agendar</a>
+        <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary" data-track="agendar" data-ubicacion="cta_final">Agendar</a>
       </div>
     </div>
   </div>
@@ -2541,6 +2557,38 @@
       }
     });
   });
+
+  /* ── GA4 TRACKING ── */
+  safe(function initTracking() {
+    // Click events
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('[data-track]');
+      if (!a) return;
+      var type = a.dataset.track;
+      if (type === 'agendar') {
+        gtag('event', 'agendar_click', { ubicacion: a.dataset.ubicacion || '' });
+      } else if (type === 'linkedin') {
+        gtag('event', 'linkedin_click', { persona: a.dataset.persona || '' });
+      } else if (type === 'epti') {
+        gtag('event', 'epti_click');
+      }
+    });
+
+    // Section visibility (once per section)
+    var sections = document.querySelectorAll('section[id]');
+    if (!sections.length) return;
+    var seen = {};
+    var sectionObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        var id = entry.target.id;
+        if (entry.isIntersecting && !seen[id]) {
+          seen[id] = true;
+          gtag('event', 'seccion_vista', { seccion: id });
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(function(s) { sectionObs.observe(s); });
+  }, 'tracking');
 
   /* ── ACADEMY LINE ── */
   safe(function initAcademyLine() {
