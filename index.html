@@ -620,6 +620,47 @@
       height: 40px;
       background: rgba(22,20,18,0.2);
     }
+    /* ── LOGOS BANNER ── */
+    @keyframes logos-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .logos-banner {
+      background: var(--ambar);
+      padding: 20px 0 24px;
+      overflow: hidden;
+    }
+    .logos-banner-title {
+      font-family: var(--font-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(22,20,18,0.5);
+      text-align: center;
+      margin: 0 0 16px;
+    }
+    .logos-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content;
+      animation: logos-scroll 28s linear infinite;
+    }
+    .logos-track:hover { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) {
+      .logos-track { animation: none; }
+    }
+    .logos-track-name {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(22,20,18,0.75);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 0 8px;
+    }
+
     .epti-strip-tag {
       font-family: var(--font-head);
       font-size: 13px;
@@ -1939,7 +1980,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
-      align-items: start;
+      align-items: stretch;
     }
     .academy-svg {
       position: absolute;
@@ -2212,13 +2253,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
     <div style="text-align:center; margin-top:2.5rem;">
-      <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary reveal" data-track="agendar" data-ubicacion="areas">Agendemos 30 min</a>
+      <a href="https://calendar.app.google/6cMgao4XkAJAwxAM8" target="_blank" rel="noopener" class="btn-primary reveal" data-track="agendar" data-ubicacion="areas">Agendemos 30 min</a>
     </div>
   </div>
 </section>
 
-
-
+<!-- LOGOS BANNER -->
+<div class="logos-banner">
+  <p class="logos-banner-title">Empresas que confían en nosotros</p>
+  <div style="overflow:hidden;">
+    <div class="logos-track">
+      <!-- set 1 -->
+      <span class="logos-track-name">Adidas</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Ford</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Banco Ripley</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Hospital del Niño</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Nutresa</span>
+      <span class="epti-strip-x">✕</span>
+      <!-- set 2 (duplicado para loop sin saltos) -->
+      <span class="logos-track-name">Adidas</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Ford</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Banco Ripley</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Hospital del Niño</span>
+      <span class="epti-strip-x">✕</span>
+      <span class="logos-track-name">Nutresa</span>
+      <span class="epti-strip-x">✕</span>
+    </div>
+  </div>
+</div>
 
 <!-- 3. QUÉ ES + CÓMO FUNCIONA — carbón -->
 <section id="que-es">
@@ -2234,21 +2303,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8 2 5 5 5 9c0 2.5 1.3 4.7 3.3 6L12 22l3.7-7C17.7 13.7 19 11.5 19 9c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           </div>
           <h3 class="cf-title" style="color:var(--crema);">Movimiento</h3>
-          <p class="cf-body">El cuerpo guarda lo que la mente evita. A través del movimiento, el líder aprende a soltar la tensión acumulada y a actuar desde un lugar más firme y presente.</p>
+          <p class="cf-body">Comunicación no verbal: postura, mirada y respiración muestran cómo lideras antes de que digas una palabra. El cuerpo enseña a poner límites y a ganar confianza.</p>
         </div>
         <div class="cf-item">
           <div class="cf-icon" style="background:rgba(242,183,5,0.1); color:var(--ambar);">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
           </div>
-          <h3 class="cf-title" style="color:var(--crema);">Música</h3>
+          <h3 class="cf-title" style="color:var(--crema);">Música y arte</h3>
           <p class="cf-body">El ritmo abre lo que las palabras cierran. Usamos la música para entrar en contacto con estados emocionales que el rol corporativo suele dejar fuera de la sala.</p>
         </div>
         <div class="cf-item">
           <div class="cf-icon" style="background:rgba(242,183,5,0.1); color:var(--ambar);">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
-          <h3 class="cf-title" style="color:var(--crema);">Palabra</h3>
-          <p class="cf-body">Nombrar lo que se siente es el primer acto de liderazgo. El círculo de palabra da a cada participante un espacio para decir lo real, sin filtros ni jerarquías.</p>
+          <h3 class="cf-title" style="color:var(--crema);">Laboratorio de conversaciones</h3>
+          <p class="cf-body">Trabajamos con situaciones reales: tus conversaciones pendientes se practican con role playing y feedback. Así el aprendizaje llega de inmediato al contexto laboral.</p>
         </div>
       </div>
     </div>
@@ -2273,7 +2342,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </svg>
 
       <!-- I DESPERTAR -->
-      <div class="academy-card academy-card--white reveal" style="margin-top:0">
+      <div class="academy-card academy-card--white reveal">
         <span class="academy-numeral" aria-hidden="true">I</span>
         <div class="academy-dot-anchor"></div>
         <p class="academy-level">NIVEL I</p>
@@ -2292,7 +2361,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- II AVANZAR -->
-      <div class="academy-card academy-card--terra reveal" data-delay="1" style="margin-top:80px">
+      <div class="academy-card academy-card--terra reveal" data-delay="1">
         <span class="academy-numeral" aria-hidden="true">II</span>
         <div class="academy-dot-anchor"></div>
         <p class="academy-level">NIVEL II</p>
@@ -2310,7 +2379,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- III TRASCENDER -->
-      <div class="academy-card academy-card--carbon reveal" data-delay="2" style="margin-top:160px">
+      <div class="academy-card academy-card--carbon reveal" data-delay="2">
         <span class="academy-numeral" aria-hidden="true">III</span>
         <div class="academy-dot-anchor"></div>
         <p class="academy-level">NIVEL III</p>
@@ -2327,7 +2396,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div style="text-align:center; margin-top:3rem;">
-      <a href="https://calendar.app.google/aCzdVfEECB9V86hS9" target="_blank" rel="noopener" class="btn-primary reveal" data-track="agendar" data-ubicacion="academy">Agendemos 30 min</a>
+      <a href="https://calendar.app.google/6cMgao4XkAJAwxAM8" target="_blank" rel="noopener" class="btn-primary reveal" data-track="agendar" data-ubicacion="academy">Agendemos 30 min</a>
     </div>
   </div>
 </section>
