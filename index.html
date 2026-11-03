@@ -111,6 +111,7 @@
       letter-spacing: -0.02em;
     }
     .nav-logo span { color: var(--accent-1); }
+    #hamburger { display: none; }
     .nav-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--accent-1);
@@ -254,7 +255,7 @@
     /* título grande */
     .hero-h1 {
       font-family: var(--font-head);
-      font-size: clamp(52px, 7vw, 96px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 800;
       line-height: .95;
       letter-spacing: -0.02em;
@@ -267,10 +268,14 @@
     .hero-sub {
       font-family: 'Instrument Serif', serif;
       font-style: italic;
-      font-size: clamp(22px, 3vw, 38px);
+      font-size: clamp(16px, 1.6vw, 22px);
       line-height: 1.2;
       color: var(--crema);
       margin-bottom: 44px;
+      white-space: nowrap;
+    }
+    @media (max-width: 1023px) {
+      .hero-sub { white-space: normal; }
     }
     /* botón pill ámbar */
     .hero-btn {
@@ -648,11 +653,13 @@
     .area-stat { margin-top: auto; display: flex; flex-direction: column; gap: 4px; }
     .area-stat-num {
       font-family: var(--font-head);
-      font-size: 2rem;
+      font-size: clamp(40px, 4vw, 56px);
       font-weight: 800;
-      color: var(--ambar);
+      color: var(--terracota);
       line-height: 1;
       letter-spacing: -0.02em;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .area-stat-text {
       font-size: 12px;
@@ -2224,6 +2231,105 @@
       .academy-svg  { display: none; }
       .academy-dot-anchor { display: none; }
     }
+
+    /* ═══════════════════════════════════════════════════════
+       MÓVIL ≤ 768px  — sin tocar desktop
+    ═══════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* NAV hamburguesa */
+      .nav-links-mobile { display: none; }
+      .nav-links-mobile.open {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: rgba(15,42,34,0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 5rem 2rem 2rem;
+        z-index: 99;
+      }
+      .nav-links-mobile a {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--crema);
+        text-decoration: none;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(244,239,230,0.08);
+      }
+      .nav-links-mobile .nav-cta-mobile {
+        margin-top: 1.25rem;
+        display: block;
+        text-align: center;
+        background: var(--ambar);
+        color: var(--carbon);
+        border-radius: 999px;
+        padding: 0.85rem 1.5rem;
+        font-weight: 700;
+        border-bottom: none;
+      }
+      .nav-desktop-links { display: none !important; }
+      #hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 36px; height: 36px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 101;
+        position: relative;
+      }
+      #hamburger span {
+        display: block;
+        width: 22px; height: 2px;
+        background: var(--crema);
+        border-radius: 2px;
+        transition: transform 0.25s, opacity 0.25s;
+      }
+      #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      #hamburger.open span:nth-child(2) { opacity: 0; }
+      #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      /* HERO */
+      .hero-slides { min-height: 85svh; }
+      .hero-slide  { min-height: 85svh; padding: 88px 1.5rem 80px; }
+      .hero-arrow  { display: none; }
+      .hero-h1     { font-size: clamp(36px, 10vw, 52px); }
+      .hero-sub    { font-size: clamp(18px, 5vw, 24px); }
+      .hero-btn    { width: 100%; justify-content: center; }
+      .hero-dots   { left: 1.5rem; }
+
+      /* Secciones */
+      section { padding-block: 64px; }
+      #areas  { padding: 64px 1.25rem; }
+      #te-formaron { padding: 64px 1.25rem; }
+      .tf-cards { grid-template-columns: 1fr; }
+
+      /* Testimonios */
+      #programas .container > div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Equipo */
+      #sobre-marjo div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* CTAs a ancho completo */
+      .btn-primary, .hero-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Cards sin min-height */
+      .tf-card, .cf-item, .area-card, .academy-card { min-height: unset !important; }
+    }
   </style>
 </head>
 <body>
@@ -2241,13 +2347,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div style="display:flex; align-items:center; gap:0.75rem;">
     <div class="nav-logo">Líder Human<svg class="x-persona" viewBox="45 21 110 162" aria-hidden="true"><circle cx="100" cy="40" r="17" fill="currentColor"/><g stroke="currentColor" stroke-width="26" stroke-linecap="round"><line x1="58" y1="72" x2="142" y2="170"/><line x1="142" y1="72" x2="58" y2="170"/></g></svg></div>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <!-- Desktop links -->
+  <div class="nav-desktop-links" style="display:flex; align-items:center; gap:1.5rem;">
     <a href="#te-formaron" class="nav-link" style="font-size:0.8rem; font-weight:600; color:rgba(244,239,230,0.8); text-decoration:none; white-space:nowrap; transition:color 0.2s;" onmouseover="this.style.color='#F4EFE6'" onmouseout="this.style.color='rgba(244,239,230,0.8)'">HumanX</a>
     <a href="#que-es" class="nav-link" style="font-size:0.8rem; font-weight:600; color:rgba(244,239,230,0.8); text-decoration:none; white-space:nowrap; transition:color 0.2s;" onmouseover="this.style.color='#F4EFE6'" onmouseout="this.style.color='rgba(244,239,230,0.8)'">Experiencia</a>
     <a href="#sobre-marjo" class="nav-link" style="font-size:0.8rem; font-weight:600; color:rgba(244,239,230,0.8); text-decoration:none; white-space:nowrap; transition:color 0.2s;" onmouseover="this.style.color='#F4EFE6'" onmouseout="this.style.color='rgba(244,239,230,0.8)'">Escuela</a>
     <a href="https://calendar.app.google/6cMgao4XkAJAwxAM8" target="_blank" rel="noopener" class="nav-cta" data-track="agendar" data-ubicacion="nav">Conversemos</a>
   </div>
+  <!-- Hamburguesa (solo móvil) -->
+  <button id="hamburger" aria-label="Menú" aria-expanded="false" aria-controls="navMobile">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<!-- Menú móvil -->
+<div class="nav-links-mobile" id="navMobile" role="dialog" aria-label="Menú de navegación">
+  <a href="#te-formaron">HumanX</a>
+  <a href="#que-es">Experiencia</a>
+  <a href="#sobre-marjo">Escuela</a>
+  <a href="https://calendar.app.google/6cMgao4XkAJAwxAM8" target="_blank" rel="noopener" class="nav-cta-mobile" data-track="agendar" data-ubicacion="nav-mobile">Conversemos</a>
+</div>
 
 <!-- 1. HERO SLIDER -->
 <section id="hero">
@@ -2257,7 +2375,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-slide active">
       <div class="hero-slide-content">
         <h1 class="hero-h1">Líder Human<svg class="x-persona" viewBox="45 21 110 162" aria-hidden="true"><circle cx="100" cy="40" r="17" fill="currentColor"/><g stroke="currentColor" stroke-width="26" stroke-linecap="round"><line x1="58" y1="72" x2="142" y2="170"/><line x1="142" y1="72" x2="58" y2="170"/></g></svg></h1>
-        <p class="hero-sub">Experiencias de liderazgo para empresas.</p>
+        <p class="hero-sub">Entrenamos el lado humano del liderazgo.</p>
         <a href="#te-formaron" class="hero-btn">Conoce más</a>
       </div>
     </div>
@@ -2265,17 +2383,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- SLIDE 2 -->
     <div class="hero-slide">
       <div class="hero-slide-content">
-        <h1 class="hero-h1">Escuela de <span class="c-ambar">Liderazgo</span> Humano</h1>
-        <p class="hero-sub">Trabajamos desde dónde lideras: con el cuerpo, no con más teoría.</p>
-        <a href="#que-es" class="hero-btn">Conoce más</a>
+        <h1 class="hero-h1">Cuando todo va bien, liderar es fácil.</h1>
+        <p class="hero-sub">Lo difícil es una meta que no llega, un límite que no se pone, una desvinculación.</p>
+        <a href="#te-formaron" class="hero-btn">Ver situaciones</a>
       </div>
     </div>
 
     <!-- SLIDE 3 -->
     <div class="hero-slide">
       <div class="hero-slide-content">
-        <h1 class="hero-h1">Gimnasio emocional<br>y <span class="c-terra">laboratorio<br>de conversaciones</span></h1>
-        <p class="hero-sub">Programa de entrenamiento para líderes de empresas.</p>
+        <h1 class="hero-h1">Gimnasio emocional y <span class="c-terra">laboratorio de conversaciones</span></h1>
+        <p class="hero-sub">Tus líderes practican las conversaciones difíciles antes de tenerlas.</p>
         <a href="https://calendar.app.google/6cMgao4XkAJAwxAM8" target="_blank" rel="noopener" class="hero-btn" data-track="agendar" data-ubicacion="hero">Agendemos 30 min</a>
       </div>
     </div>
@@ -2283,11 +2401,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- SLIDE 4 -->
     <div class="hero-slide">
       <div class="hero-slide-content">
-        <h1 class="hero-h1" style="font-size:clamp(40px,5.5vw,76px);">
-          <span class="hero-epti-row">En alianza con <img src="assets/LOGOTIPO_EPTI-5.svg" alt="EPTI"></span>
+        <h1 class="hero-h1">
+          <span class="hero-epti-row">En alianza con <img src="assets/LOGOTIPO_EPTI-5.svg" alt="EPTI" style="height:1.3em;"></span>
         </h1>
         <p class="hero-sub">Escuela de Psicología Transpersonal Integral</p>
-        <p class="hero-sub" style="margin-top:-16px; font-size:clamp(16px,2vw,26px);">40 años de experiencia, con sedes en América y Europa.</p>
+        <p class="hero-sub" style="margin-top:-16px;">40 años de experiencia, con sedes en América y Europa.</p>
         <a href="#sobre-marjo" class="hero-btn" data-track="epti">Conoce al equipo</a>
       </div>
     </div>
@@ -2342,28 +2460,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="te-formaron">
   <div class="tf-inner">
     <div class="tf-header reveal">
-      <h2 class="tf-h2 section-title">Te formaron para dirigir.<br>Nadie te enseñó qué hacer con <em class="accent-serif">lo que sientes.</em></h2>
+      <h2 class="tf-h2 section-title">Cuando todo va bien, liderar es fácil. <em class="accent-serif">Lo difícil es esto:</em></h2>
     </div>
     <div class="tf-cards" style="margin-top:2.5rem;">
       <div class="tf-card tf-card-light reveal">
         <div class="tf-num">01</div>
-        <p class="tf-title">Conversaciones difíciles</p>
-        <p class="tf-body">Nadie te enseñó a tener conversaciones incómodas.</p>
+        <p class="tf-title">Resultados que no llegan</p>
+        <p class="tf-body">¿Qué haces con tu frustración cuando los objetivos no llegan?</p>
       </div>
       <div class="tf-card tf-card-light reveal" data-delay="1">
         <div class="tf-num">02</div>
-        <p class="tf-title">Burnout</p>
-        <p class="tf-body">Los líderes también se cansan. Y eso no los hace menos líderes.</p>
+        <p class="tf-title">Desalineación de valores</p>
+        <p class="tf-body">¿Qué límite sabes que deberías poner y aún no pones?</p>
       </div>
       <div class="tf-card tf-card-light reveal" data-delay="2">
         <div class="tf-num">03</div>
-        <p class="tf-title">Desmotivación</p>
-        <p class="tf-body">Sentir que algo no está bien no es drama. Es brújula.</p>
+        <p class="tf-title">Desvinculaciones</p>
+        <p class="tf-body">¿Cómo cierras un ciclo cuidando a la persona que se va?</p>
       </div>
       <div class="tf-card tf-card-dark reveal" data-delay="3">
         <div class="tf-num">04</div>
-        <p class="tf-title">Miedo y ansiedad</p>
-        <p class="tf-body">El miedo no se va con un framework. Se atraviesa.</p>
+        <p class="tf-title">Estrés y presión</p>
+        <p class="tf-body">¿Cómo te sostienes frente a tu equipo cuando la presión te desborda?</p>
       </div>
     </div>
   </div>
@@ -2373,36 +2491,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="areas">
   <div class="areas-inner">
     <div class="areas-header reveal">
-      <h2 class="areas-h2 section-title">Para las áreas donde liderar<br><em class="accent-serif">se siente</em> en los resultados.</h2>
-      <p class="areas-intro section-subtitle section-subtitle--dark">Programas in-company diseñados para equipos que viven bajo presión.</p>
+      <h2 class="areas-h2 section-title">Algunos líderes evitan las situaciones difíciles.<br>Otros las enfrentan <em class="accent-serif">sin haberlas practicado nunca</em>, y termina peor.</h2>
     </div>
     <div class="areas-cards">
 
       <div class="area-card reveal">
-        <span class="area-chip">Ventas</span>
-        <p class="area-body">Jefes y supervisores comerciales que sostienen metas, rechazos y equipos al límite.</p>
         <div class="area-stat">
-          <span class="area-stat-num">35%</span>
-          <p class="area-stat-text">rotación anual de vendedores · <span class="area-stat-source">Xactly</span></p>
+          <span class="area-stat-num">69%</span>
         </div>
+        <p class="area-body">líderes incómodos al comunicarse con su equipo</p>
+        <p class="area-stat-text" style="margin-top:auto;"><span class="area-stat-source">Interact/Harris</span></p>
       </div>
 
       <div class="area-card reveal" data-delay="1">
-        <span class="area-chip">Líderes</span>
-        <p class="area-body">Líderes de RRHH y de cualquier área que cuidan a todos y rara vez tienen dónde soltar lo propio.</p>
         <div class="area-stat">
-          <span class="area-stat-num">70%</span>
-          <p class="area-stat-text">del compromiso de un equipo depende de su líder · <span class="area-stat-source">Gallup</span></p>
+          <span class="area-stat-num">US$ 12,506</span>
         </div>
+        <p class="area-body">costo anual por colaborador de la mala comunicación</p>
+        <p class="area-stat-text" style="margin-top:auto;"><span class="area-stat-source">SHRM/Grossman</span></p>
       </div>
 
       <div class="area-card reveal" data-delay="2">
-        <span class="area-chip">Servicio al Cliente</span>
-        <p class="area-body">Equipos que absorben el enojo del cliente todos los días y necesitan regularse para no quemarse.</p>
         <div class="area-stat">
-          <span class="area-stat-num">30–45%</span>
-          <p class="area-stat-text">rotación anual en equipos de atención · <span class="area-stat-source">Insignia Resources</span></p>
+          <span class="area-stat-num">4x</span>
         </div>
+        <p class="area-body">más compromiso con feedback significativo</p>
+        <p class="area-stat-text" style="margin-top:auto;"><span class="area-stat-source">Gallup</span></p>
       </div>
 
     </div>
@@ -2447,24 +2561,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="que-es">
   <div class="container" style="max-width:1200px;">
     <h2 class="section-title reveal" style="color:var(--crema);">
-      Líder Human<svg class="x-persona" viewBox="45 21 110 162" aria-hidden="true"><circle cx="100" cy="40" r="17" fill="currentColor"/><g stroke="currentColor" stroke-width="26" stroke-linecap="round"><line x1="58" y1="72" x2="142" y2="170"/><line x1="142" y1="72" x2="58" y2="170"/></g></svg> no es un curso más.<br>Es una e<svg class="x-persona" viewBox="45 21 110 162" aria-hidden="true"><circle cx="100" cy="40" r="17" fill="currentColor"/><g stroke="currentColor" stroke-width="26" stroke-linecap="round"><line x1="58" y1="72" x2="142" y2="170"/><line x1="142" y1="72" x2="58" y2="170"/></g></svg>periencia.
+      Líder Human<svg class="x-persona" viewBox="45 21 110 162" aria-hidden="true"><circle cx="100" cy="40" r="17" fill="currentColor"/><g stroke="currentColor" stroke-width="26" stroke-linecap="round"><line x1="58" y1="72" x2="142" y2="170"/><line x1="142" y1="72" x2="58" y2="170"/></g></svg>, entrenamos <em class="accent-serif" style="color:var(--ambar);">el lado humano</em> del liderazgo.
     </h2>
-    <p class="section-subtitle section-subtitle--dark reveal" data-delay="1">No reemplazamos la teoría ni tus frameworks. Son necesarios. Lo que cambia es <em>desde dónde</em> lideras: tu energía, tu coherencia, el liderazgo que ya vive en ti.</p>
+    <p class="section-subtitle section-subtitle--dark reveal" data-delay="1">Comunicación, feedback y conversaciones difíciles, practicadas en situaciones reales.</p>
     <div style="margin-top:48px;">
       <div class="como-funciona reveal" data-delay="1">
         <div class="cf-item">
           <div class="cf-icon" style="background:rgba(242,183,5,0.1); color:var(--ambar);">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8 2 5 5 5 9c0 2.5 1.3 4.7 3.3 6L12 22l3.7-7C17.7 13.7 19 11.5 19 9c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           </div>
-          <h3 class="cf-title" style="color:var(--crema);">Movimiento</h3>
+          <h3 class="cf-title" style="color:var(--crema);">Gimnasio emocional</h3>
           <p class="cf-body">Comunicación no verbal: postura, mirada y respiración muestran cómo lideras antes de que digas una palabra. El cuerpo enseña a poner límites y a ganar confianza.</p>
-        </div>
-        <div class="cf-item">
-          <div class="cf-icon" style="background:rgba(242,183,5,0.1); color:var(--ambar);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-          </div>
-          <h3 class="cf-title" style="color:var(--crema);">Música y arte</h3>
-          <p class="cf-body">El ritmo abre lo que las palabras cierran. Usamos la música para entrar en contacto con estados emocionales que el rol corporativo suele dejar fuera de la sala.</p>
         </div>
         <div class="cf-item">
           <div class="cf-icon" style="background:rgba(242,183,5,0.1); color:var(--ambar);">
@@ -2827,6 +2934,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }, { threshold: 0.15 }).observe(track);
   }, 'academyLine');
 
+  safe(function initHamburger() {
+    var btn   = document.getElementById('hamburger');
+    var menu  = document.getElementById('navMobile');
+    if (!btn || !menu) return;
+    function toggle(force) {
+      var open = force !== undefined ? force : !menu.classList.contains('open');
+      menu.classList.toggle('open', open);
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    btn.addEventListener('click', function() { toggle(); });
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { toggle(false); });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') toggle(false);
+    });
+  }, 'hamburger');
+
   safe(function initHeroSlider() {
     var slides = Array.prototype.slice.call(document.querySelectorAll('#heroSlides .hero-slide'));
     var dots   = Array.prototype.slice.call(document.querySelectorAll('#heroDots .hero-dot'));
@@ -2865,6 +2992,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (heroEl) {
       heroEl.addEventListener('mouseenter', function() { clearInterval(timer); });
       heroEl.addEventListener('mouseleave', startAuto);
+      /* swipe touch */
+      var touchStartX = 0;
+      heroEl.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+      heroEl.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); startAuto(); }
+      }, { passive: true });
     }
 
     startAuto();
